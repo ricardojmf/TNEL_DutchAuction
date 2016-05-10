@@ -1,0 +1,17 @@
+<Products>
+
+	<Product id="Peixe1">
+		<value>100</value>
+		<startPrice>150</startPrice>
+		<minAcceptablePrice>110</minAcceptablePrice>
+		<increment>5</increment>		
+	</Product>
+	
+	<Product id="Peixe2">
+		<value>20</value>
+		<startPrice>25</startPrice>
+		<minAcceptablePrice>15</minAcceptablePrice>
+		<increment>1</increment>		
+	</Product>
+	
+</Products>

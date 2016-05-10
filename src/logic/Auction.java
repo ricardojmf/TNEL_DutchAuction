@@ -1,4 +1,6 @@
-package cli;
+package logic;
+
+import java.util.ArrayList;
 
 import agents.Auctioneer;
 import agents.Buyer;
@@ -13,15 +15,46 @@ public class Auction {
 	
 	private ContainerController container;
 	private boolean DEBUG_MODE = true;
+	private ProductsLoader pl;
+	private ArrayList<Product> products; // products in auction
 	
-	public Auction(boolean debugMode) {
+	public Auction(boolean debugMode, String productsFilePath) {
 		this.DEBUG_MODE = debugMode;
+		pl = new ProductsLoader(productsFilePath);
+		this.products = new ArrayList<Product>();
 	}
 	
 	public void launchJade() {
 		Runtime rt = Runtime.instance();
 		Profile p1 = new ProfileImpl();
 		container = rt.createMainContainer(p1);
+	}
+	
+	//TODO
+	public boolean initializeAuction() {	
+		products = pl.loadProducts();
+		
+		if(products == null) {
+			if(DEBUG_MODE) {
+				System.out.println(pl.getError());
+			}				
+			else {
+				System.out.println("Error launching Auction:\n " + pl.getError());
+			}
+			pl.setError(null);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public void printProducts() {
+		Product p;
+		for(int i = 0; i < products.size(); i++) {
+			p = products.get(i);
+			System.out.println(i + ") " + p.getName() + " " + p.getActualValue() + " " + p.getStartPrice() + 
+					" " + p.getIncrement() + " " + p.getMinPrice() + "\n");
+		}
 	}
 	
 	//TODO
@@ -34,6 +67,7 @@ public class Auction {
 			ac.start();
 		} catch (StaleProxyException e) {
 			if(DEBUG_MODE) {
+				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}				
 			else {
@@ -56,6 +90,7 @@ public class Auction {
 			ac.start();
 		} catch (StaleProxyException e) {
 			if(DEBUG_MODE) {
+				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}				
 			else {
