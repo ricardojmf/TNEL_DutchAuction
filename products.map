@@ -1,6 +1,7 @@
 <Products>
 
 	<Product id="Peixe1">
+		<quantity>500</quantity>
 		<value>100</value>
 		<startPrice>150</startPrice>
 		<minAcceptablePrice>110</minAcceptablePrice>
@@ -8,6 +9,7 @@
 	</Product>
 	
 	<Product id="Peixe2">
+		<quantity>500</quantity>
 		<value>20</value>
 		<startPrice>25</startPrice>
 		<minAcceptablePrice>15</minAcceptablePrice>

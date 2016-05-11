@@ -53,7 +53,7 @@ public class Auction {
 		for(int i = 0; i < products.size(); i++) {
 			p = products.get(i);
 			System.out.println(i + ") " + p.getName() + " " + p.getActualValue() + " " + p.getStartPrice() + 
-					" " + p.getIncrement() + " " + p.getMinPrice() + "\n");
+					" " + p.getIncrement() + " " + p.getMinPrice() + " " + p.getQuantityAtStart() + "\n");
 		}
 	}
 	

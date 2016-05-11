@@ -7,13 +7,17 @@ public class Product {
 	private double startPrice;
 	private double increment;
 	private double minAcceptablePrice;
+	private int quantityAtStart;
+	private int quantityAvailable;
 	
-	public Product(String name, double actualValue, double startPrice, double increment, double minPrice) {
+	public Product(String name, double actualValue, double startPrice, double increment, double minPrice, int quantity) {
 		this.name = name;
 		this.actualValue = actualValue;
 		this.startPrice = startPrice;
 		this.increment = increment;
 		this.minAcceptablePrice = minPrice;
+		this.quantityAtStart = quantity;
+		this.quantityAvailable = quantity;
 	}
 	
 	public String getName() {
@@ -45,6 +49,22 @@ public class Product {
 	}
 	public void setMinPrice(double minPrice) {
 		this.minAcceptablePrice = minPrice;
+	}
+
+	public int getQuantityAtStart() {
+		return quantityAtStart;
+	}
+
+	public void setQuantityAtStart(int quantityAtStart) {
+		this.quantityAtStart = quantityAtStart;
+	}
+
+	public int getQuantityAvailable() {
+		return quantityAvailable;
+	}
+
+	public void setQuantityAvailable(int quantityAvailable) {
+		this.quantityAvailable = quantityAvailable;
 	}
 	
 	

@@ -36,8 +36,9 @@ public class ProductsLoader {
 				double startPrice = Double.parseDouble(((Element)productNodes.item(i)).getElementsByTagName("startPrice").item(0).getTextContent());
 				double minAcceptablePrice = Double.parseDouble(((Element)productNodes.item(i)).getElementsByTagName("minAcceptablePrice").item(0).getTextContent());
 				double increment = Double.parseDouble(((Element)productNodes.item(i)).getElementsByTagName("increment").item(0).getTextContent());
-	
-				Product p = new Product(id, value, startPrice, increment, minAcceptablePrice);
+				int quantity = Integer.parseInt(((Element)productNodes.item(i)).getElementsByTagName("quantity").item(0).getTextContent());
+				
+				Product p = new Product(id, value, startPrice, increment, minAcceptablePrice, quantity);
 				products.add(p);
 			}
 			
