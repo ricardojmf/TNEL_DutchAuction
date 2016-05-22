@@ -61,20 +61,23 @@ public class Auction {
 	public boolean createBuyerAgents() {
 		Object[] agentArgs = new Object[0];
 		AgentController ac;
-		try {
-			Buyer b = new Buyer();
-			ac = container.acceptNewAgent("Buyer_" + 1, b);
-			ac.start();
-		} catch (StaleProxyException e) {
-			if(DEBUG_MODE) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}				
-			else {
-				System.out.println("Error launching Buyers.");
+		
+		for(int i = 0; i < 3; i++) {
+			try {
+				Buyer b = new Buyer();
+				ac = container.acceptNewAgent("Buyer_" + i, b);
+				ac.start();
+			} catch (StaleProxyException e) {
+				if(DEBUG_MODE) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}				
+				else {
+					System.out.println("Error launching Buyers.");
+				}
+					
+				return false;
 			}
-				
-			return false;
 		}
 		
 		return true;
