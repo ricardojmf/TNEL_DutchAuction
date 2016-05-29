@@ -18,7 +18,7 @@ public class Main {
 		}
 		System.out.println("Registering auctioneer...");
 		auction.createAuctioneerAgent();	
-		//auction.printProducts();
+		auction.printProducts();
 	}
 	
 }

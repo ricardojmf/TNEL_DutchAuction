@@ -4,9 +4,11 @@ public class Product {
 
 	private String name;
 	private double actualValue;
-	private double startPrice;
 	private double increment;
 	private double minAcceptablePrice;
+	private double startPrice;
+	private double currentPrice;
+	
 	private int quantityAtStart;
 	private int quantityAvailable;
 	
@@ -14,10 +16,30 @@ public class Product {
 		this.name = name;
 		this.actualValue = actualValue;
 		this.startPrice = startPrice;
+		this.currentPrice = startPrice;
 		this.increment = increment;
 		this.minAcceptablePrice = minPrice;
 		this.quantityAtStart = quantity;
 		this.quantityAvailable = quantity;
+	}
+	
+	public void reducePrice() {
+		currentPrice = currentPrice - increment;
+		
+		if(currentPrice < 0)
+			currentPrice = 0;
+	}
+	
+	public boolean isAcceptablePrice() {
+		return ((currentPrice - increment) >= minAcceptablePrice);
+	}
+	
+	public boolean isPossibleToSell(int quantity) {
+		return ((quantityAvailable - quantity) >= 0);
+	}
+	
+	public void sell(int quantity) {
+		quantityAvailable = quantityAvailable - quantity;
 	}
 	
 	public String getName() {
@@ -65,6 +87,14 @@ public class Product {
 
 	public void setQuantityAvailable(int quantityAvailable) {
 		this.quantityAvailable = quantityAvailable;
+	}
+
+	public double getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(double currentPrice) {
+		this.currentPrice = currentPrice;
 	}
 	
 	

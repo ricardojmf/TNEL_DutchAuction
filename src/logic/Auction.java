@@ -62,7 +62,7 @@ public class Auction {
 		Object[] agentArgs = new Object[0];
 		AgentController ac;
 		
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 1; i++) {
 			try {
 				Buyer b = new Buyer();
 				ac = container.acceptNewAgent("Buyer_" + i, b);
