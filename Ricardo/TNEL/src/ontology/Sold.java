@@ -1,4 +1,4 @@
-package ontology_base;
+package ontology;
 
 import jade.content.AgentAction;
 

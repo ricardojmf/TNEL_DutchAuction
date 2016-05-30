@@ -1,10 +1,10 @@
-package ontology_base;
+package ontology;
 
 import jade.content.AgentAction;
 
-public class Want implements AgentAction{
+public class NewPrice implements AgentAction{
 	
-	private static final long serialVersionUID = 1904954188924461661L;
+	private static final long serialVersionUID = -8446670338877259265L;
 	
 	private String itemName;
 	private int price;
