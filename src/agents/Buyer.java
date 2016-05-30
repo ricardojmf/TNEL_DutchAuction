@@ -24,7 +24,20 @@ public class Buyer extends Agent {
 	
 	private BuyerState state;
 	private ArrayList<BuyerProduct> productsToBuy;
-	private BuyerProduct productExample = new BuyerProduct("sardinhas", 3.0, 1000, 50, 20);
+	private BuyerProduct productExample = new BuyerProduct("sardinhas", 3.0, 50, 20);
+	
+	private String name;
+	private double moneyAtStart;
+	private double currentMoney;
+	private int productBeingBought;
+	
+	public Buyer(String name, double moneyAtStart, ArrayList<BuyerProduct> productsToBuy) {
+		this.name = name;
+		this.moneyAtStart = moneyAtStart;
+		this.currentMoney = moneyAtStart;
+		this.productsToBuy = productsToBuy;
+		this.productBeingBought = -1;
+	}
 	
 	protected void setup() {
 		System.out.println("Starting buyer agent..." + getAID() + " " + getLocalName());
@@ -66,6 +79,17 @@ public class Buyer extends Agent {
 		this.send(msg);
 	}
 	
+	public boolean buy(double price, int quantity) {
+		if((currentMoney - price) >= 0) {			
+			if(productsToBuy.get(productBeingBought).buy(quantity)) {
+				currentMoney -= price;
+				return true;
+			}
+			return false;			
+		}
+		return false;
+	}
+	
 	public BuyerState getBuyerState() {
 		return state;
 	}
@@ -80,6 +104,38 @@ public class Buyer extends Agent {
 
 	public void setProductsToBuy(ArrayList<BuyerProduct> productsToBuy) {
 		this.productsToBuy = productsToBuy;
+	}
+	
+	public double getMoneyAtStart() {
+		return moneyAtStart;
+	}
+
+	public void setMoneyAtStart(double moneyAtStart) {
+		this.moneyAtStart = moneyAtStart;
+	}
+
+	public double getCurrentMoney() {
+		return currentMoney;
+	}
+
+	public void setCurrentMoney(double currentMoney) {
+		this.currentMoney = currentMoney;
+	}
+
+	public int getCurrentProductBeingBought() {
+		return productBeingBought;
+	}
+
+	public void setCurrentProductBeingBought(int productBeingBought) {
+		this.productBeingBought = productBeingBought;
+	}
+
+	public String getBuyerName() {
+		return name;
+	}
+
+	public void setBuyerName(String name) {
+		this.name = name;
 	}
 
 	public BuyerProduct getProductExample() {

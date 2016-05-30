@@ -72,7 +72,7 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 				double price = Double.parseDouble(product[0]);
 				int quantity = Integer.parseInt(product[1]);
 				System.out.println(myAgent.getLocalName()+" bought "+quantity+" for "+price);
-				getBuyer().getProductExample().buy(price, quantity);
+				getBuyer().buy(price, quantity);
 				if(getBuyer().getProductExample().getQuantityLeftToBuy() == 0) {
 					getBuyer().setBuyerState(BuyerState.END);
 				}

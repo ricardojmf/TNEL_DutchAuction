@@ -6,10 +6,10 @@ public class Main {
 	
 	public static void main(String[] args) {
 		boolean debugMode = true;
-		Auction auction = new Auction(debugMode, "products.map");
+		Auction auction = new Auction(debugMode, "products.map", "agents.map");
 		auction.launchJade();
 		auction.initializeAuction();
-		auction.createBuyerAgents();
+		auction.launchBuyerAgents();
 		try {
 			System.out.println("Registering buyers...");
 			Thread.sleep(3000);
@@ -17,8 +17,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println("Registering auctioneer...");
-		auction.createAuctioneerAgent();	
+		/*auction.createAuctioneerAgent();*/	
 		auction.printProducts();
+		auction.printBuyers();
 	}
 	
 }

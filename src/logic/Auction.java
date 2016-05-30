@@ -17,11 +17,13 @@ public class Auction {
 	private boolean DEBUG_MODE = true;
 	private ProductsLoader pl;
 	private ArrayList<Product> products; // products in auction
+	private ArrayList<Buyer> buyers; //buyers in auction
 	
-	public Auction(boolean debugMode, String productsFilePath) {
+	public Auction(boolean debugMode, String productsFilePath, String agentsFilePath) {
 		this.DEBUG_MODE = debugMode;
-		pl = new ProductsLoader(productsFilePath);
+		pl = new ProductsLoader(productsFilePath, agentsFilePath);
 		this.products = new ArrayList<Product>();
+		this.buyers = new ArrayList<Buyer>();
 	}
 	
 	public void launchJade() {
@@ -33,10 +35,11 @@ public class Auction {
 	//TODO
 	public boolean initializeAuction() {	
 		products = pl.loadProducts();
+		buyers = pl.loadAgents();
 		
-		if(products == null) {
+		if(products == null || buyers == null) {
 			if(DEBUG_MODE) {
-				System.out.println(pl.getError());
+				System.out.println("error"+pl.getError());
 			}				
 			else {
 				System.out.println("Error launching Auction:\n " + pl.getError());
@@ -49,23 +52,38 @@ public class Auction {
 	}
 	
 	public void printProducts() {
+		System.out.println("\tPRODUCTS");
 		Product p;
 		for(int i = 0; i < products.size(); i++) {
 			p = products.get(i);
 			System.out.println(i + ") " + p.getName() + " " + p.getActualValue() + " " + p.getStartPrice() + 
-					" " + p.getIncrement() + " " + p.getMinPrice() + " " + p.getQuantityAtStart() + "\n");
+					" " + p.getIncrement() + " " + p.getMinPrice() + " " + p.getQuantityAtStart());
+		}
+	}
+	
+	public void printBuyers() {
+		System.out.println("\tBUYERS");
+		Buyer b;
+		for(int i = 0; i < buyers.size(); i++) {
+			BuyerProduct bp;
+			b = buyers.get(i);
+			System.out.println(i + ") " + b.getBuyerName() + " Money: " + b.getMoneyAtStart() + "\nProducts:");
+			for(int j = 0; j < b.getProductsToBuy().size(); j++) {
+				bp = b.getProductsToBuy().get(j);
+				System.out.println("\t "+bp.getName()+ " "+bp.getValuation()+" "+bp.getQuantityToBuy()+" "+bp.getMinimumQuantity());
+			}						
 		}
 	}
 	
 	//TODO
-	public boolean createBuyerAgents() {
+	public boolean launchBuyerAgents() {
 		Object[] agentArgs = new Object[0];
 		AgentController ac;
 		
-		for(int i = 0; i < 1; i++) {
+		for(int i = 0; i < buyers.size(); i++) {
 			try {
-				Buyer b = new Buyer();
-				ac = container.acceptNewAgent("Buyer_" + i, b);
+				Buyer b = buyers.get(i);
+				ac = container.acceptNewAgent(b.getBuyerName(), b);
 				ac.start();
 			} catch (StaleProxyException e) {
 				if(DEBUG_MODE) {
@@ -104,5 +122,13 @@ public class Auction {
 		}
 		
 		return true;
+	}
+
+	public ArrayList<Buyer> getBuyers() {
+		return buyers;
+	}
+
+	public void setBuyers(ArrayList<Buyer> buyers) {
+		this.buyers = buyers;
 	}
 }

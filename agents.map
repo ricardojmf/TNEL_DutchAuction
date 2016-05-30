@@ -1,0 +1,14 @@
+<Agents>
+
+	<Agent id="Buyer1">
+		<money>1000</money>
+		<product id="Peixe1" valuation="3.0" quantityToBuy="50" minimumQuantity="20"></product>
+		<product id="Peixe2" valuation="3.5" quantityToBuy="30" minimumQuantity="10"></product>	
+	</Agent>
+	
+	<Agent id="Buyer2">
+		<money>1000</money>
+		<product id="Peixe1" valuation="3.5" quantityToBuy="20" minimumQuantity="10"></product>		
+	</Agent>
+	
+</Agents>

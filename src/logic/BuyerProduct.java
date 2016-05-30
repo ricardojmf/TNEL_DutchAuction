@@ -2,28 +2,23 @@ package logic;
 
 public class BuyerProduct {
 	private String name;
-	private double valuation;	
-	private double moneyAtStart;
-	private double currentMoney;
+	private double valuation;
 	
 	private int quantityToBuy;
 	private int minimumQuantity;
 	private int quantityBought;
 	
-	public BuyerProduct(String name, double valuation, double moneyAtStart, int quantityToBuy, int minimumQuantity) {
+	public BuyerProduct(String name, double valuation, int quantityToBuy, int minimumQuantity) {
 		this.name = name;
 		this.valuation = valuation;
-		this.moneyAtStart = moneyAtStart;
-		this.currentMoney = moneyAtStart;
 		this.quantityToBuy = quantityToBuy;
 		this.minimumQuantity = minimumQuantity;
 		this.quantityBought = 0;
 	}
 	
-	public boolean buy(double price, int quantity) {
-		if((currentMoney - price) >= 0) {			
-			quantityBought -= quantity;
-			currentMoney -= price;
+	public boolean buy(int quantity) {
+		if((quantityBought + quantity) <= quantityToBuy) {			
+			quantityBought += quantity;
 			return true;
 		}
 		else {
@@ -49,22 +44,6 @@ public class BuyerProduct {
 
 	public void setValuation(double valuation) {
 		this.valuation = valuation;
-	}
-
-	public double getMoneyAtStart() {
-		return moneyAtStart;
-	}
-
-	public void setMoneyAtStart(double moneyAtStart) {
-		this.moneyAtStart = moneyAtStart;
-	}
-
-	public double getCurrentMoney() {
-		return currentMoney;
-	}
-
-	public void setCurrentMoney(double currentMoney) {
-		this.currentMoney = currentMoney;
 	}
 
 	public int getQuantityToBuy() {
