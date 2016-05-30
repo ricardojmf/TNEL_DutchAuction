@@ -3,29 +3,45 @@ package ontology_base;
 import jade.content.Concept;
 
 public class Item implements Concept{
-	
-	private static final long serialVersionUID = 2818147017918405271L;
+
+	private static final long serialVersionUID = -4120602732690300547L;
 	
 	private String name;
-	private float unitPrice;
-	private Integer aparentQuality;
+	private int quantity;
+	private float unitaryPrice;
 	
-	public String getName() {
+	public Item(String name, int quantity, float unitaryPrice) {
+		this.name = name;
+		this.quantity = quantity;
+		this.unitaryPrice = unitaryPrice;
+	}
+	
+	public String getName(){
 		return name;
 	}
-	public void setName(String name) {
+	
+	public void setName(String name){
 		this.name = name;
 	}
-	public float getUnitPrice() {
-		return unitPrice;
+
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setUnitPrice(float unitPrice) {
-		this.unitPrice = unitPrice;
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	public Integer getAparentQuality() {
-		return aparentQuality;
+
+	public float getUnitaryPrice() {
+		return unitaryPrice;
 	}
-	public void setAparentQuality(Integer aparentQuality) {
-		this.aparentQuality = aparentQuality;
-	}	
+
+	public void setUnitaryPrice(float unitaryPrice) {
+		this.unitaryPrice = unitaryPrice;
+	}
+	
+	public float getFullPrice()
+	{
+		return quantity*unitaryPrice;
+	}
 }

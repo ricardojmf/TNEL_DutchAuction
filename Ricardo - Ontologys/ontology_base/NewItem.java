@@ -2,9 +2,9 @@ package ontology_base;
 
 import jade.content.AgentAction;
 
-public class Sold implements AgentAction {
+public class NewItem implements AgentAction{
 	
-	private static final long serialVersionUID = -303157063214382796L;
+	private static final long serialVersionUID = 5398570036720581755L;
 	
 	private String itemName;
 	private int price;
