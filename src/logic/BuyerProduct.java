@@ -3,6 +3,7 @@ package logic;
 public class BuyerProduct {
 	private String name;
 	private double valuation;
+	private double initialValuation;
 	
 	private int quantityToBuy;
 	private int minimumQuantity;
@@ -11,6 +12,7 @@ public class BuyerProduct {
 	public BuyerProduct(String name, double valuation, int quantityToBuy, int minimumQuantity) {
 		this.name = name;
 		this.valuation = valuation;
+		this.setInitialValuation(valuation);
 		this.quantityToBuy = quantityToBuy;
 		this.minimumQuantity = minimumQuantity;
 		this.quantityBought = 0;
@@ -48,6 +50,14 @@ public class BuyerProduct {
 
 	public void setValuation(double valuation) {
 		this.valuation = valuation;
+	}
+
+	public double getInitialValuation() {
+		return initialValuation;
+	}
+
+	public void setInitialValuation(double initialValuation) {
+		this.initialValuation = initialValuation;
 	}
 
 	public int getQuantityToBuy() {

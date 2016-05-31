@@ -45,7 +45,7 @@ public class NormalBuyingBehaviour extends SimpleBehaviour {
 				String[] product = msg.getContent().split(",");
 				String pname = product[0];
 				
-				if(getBuyer().wantsToBuyItem(pname)) {					
+				if(getBuyer().currentlyBuyingItem(pname) || getBuyer().wantsToBuyItem(pname)) {					
 					System.out.println(myAgent.getLocalName()+" it's a product ("+pname+") I want to buy...");
 					
 					double price = Double.parseDouble(product[1]);
@@ -86,6 +86,9 @@ public class NormalBuyingBehaviour extends SimpleBehaviour {
 		int toBuy = 0;
 		
 		if(!getBuyer().canBuy(price))
+			return 0;
+		
+		if(!getBuyer().wantsToBuy())
 			return 0;
 		
 		if(getBuyer().getProductBeingBought().obtainedMinimumQuantity()) {

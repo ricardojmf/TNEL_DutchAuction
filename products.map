@@ -2,9 +2,9 @@
 
 	<Product id="Peixe1">
 		<quantity>100</quantity>
-		<value>2.0</value>
+		<value>1.5</value>
 		<startPrice>5.0</startPrice>
-		<minAcceptablePrice>2.5</minAcceptablePrice>
+		<minAcceptablePrice>2.0</minAcceptablePrice>
 		<increment>0.5</increment>		
 	</Product>
 	

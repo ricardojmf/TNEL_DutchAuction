@@ -77,6 +77,23 @@ public class ProductsLoader {
 				else {
 					waitTurn = 0;
 				}
+				NodeList pPrice = agent.getElementsByTagName("percentagePriceDrop");
+				NodeList pQuant = agent.getElementsByTagName("percentageQuantityDrop");
+				NodeList pVal = agent.getElementsByTagName("percentageValuationDrop");
+				float perPrice;
+				float perQuant;
+				float perVal;
+				
+				if(pPrice.getLength() > 0 && pQuant.getLength() > 0 && pVal.getLength() > 0) {
+					perPrice = Float.parseFloat(pPrice.item(0).getTextContent());
+					perQuant = Float.parseFloat(pQuant.item(0).getTextContent());
+					perVal = Float.parseFloat(pVal.item(0).getTextContent());					
+				}
+				else {
+					perPrice = 0;
+					perQuant = 0;
+					perVal = 0;	
+				}
 				
 				ArrayList<BuyerProduct> productsToBuy = new ArrayList<BuyerProduct>();				
 				NodeList productNodes = agent.getElementsByTagName("product");
@@ -93,6 +110,7 @@ public class ProductsLoader {
 				
 				Buyer buyer = new Buyer(id, money, productsToBuy, waitTurn);
 				buyer.setBehavior(behavior);
+				buyer.setPercentages(perPrice, perQuant, perVal);
 				buyers.add(buyer);
 			}
 			

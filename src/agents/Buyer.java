@@ -36,6 +36,9 @@ public class Buyer extends Agent {
 	private double currentMoney;
 	private int productBeingBought;
 	private int waitTurn;
+	private float percentagePriceDrop;
+	private float percentageQuantityDrop;
+	private float percentageValuationDrop;
 	private Behavior behavior;
 	
 	public Buyer(String name, double moneyAtStart, ArrayList<BuyerProduct> productsToBuy, int waitTurn) {
@@ -72,7 +75,7 @@ public class Buyer extends Agent {
 				addBehaviour(new SafeBuyingBehaviour(this));
 				break;
 			case PATIENT:
-				addBehaviour(new SafeBuyingBehaviour(this));
+				addBehaviour(new PatientBuyingBehaviour(this));
 				break;
 			case PANIC:
 				addBehaviour(new SafeBuyingBehaviour(this));
@@ -125,6 +128,10 @@ public class Buyer extends Agent {
 		return (currentMoney - price) >= 0;
 	}
 	
+	public boolean wantsToBuy() {	
+		return (getProductBeingBought() != null && getProductBeingBought().getQuantityLeftToBuy() > 0);
+	}
+	
 	public boolean wantsToBuyItem(String name) {
 		String productName;
 		
@@ -141,8 +148,28 @@ public class Buyer extends Agent {
 		return false;
 	}
 	
+	public boolean currentlyBuyingItem(String name) {
+		
+		if(getProductBeingBought() == null)
+			return false;
+		
+		String productName = getProductBeingBought().getName().toLowerCase();
+
+		if(productName.equals(name.toLowerCase())) { //item matches
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean hasReachedCriticalTurn(int turn) {
 		return turn <= waitTurn;
+	}
+	
+	public void setPercentages(float percentagePriceDrop, float percentageQuantityDrop, float percentageValuationDrop) {
+		this.percentagePriceDrop = percentagePriceDrop;
+		this.percentageQuantityDrop = percentageQuantityDrop;
+		this.percentageValuationDrop = percentageValuationDrop;
 	}
 	
 	public void resetItemBeingBought() {
@@ -203,6 +230,30 @@ public class Buyer extends Agent {
 
 	public void setWaitTurn(int waitTurn) {
 		this.waitTurn = waitTurn;
+	}
+
+	public float getPercentagePriceDrop() {
+		return percentagePriceDrop;
+	}
+
+	public void setPercentagePriceDrop(float percentagePriceDrop) {
+		this.percentagePriceDrop = percentagePriceDrop;
+	}
+
+	public float getPercentageQuantityDrop() {
+		return percentageQuantityDrop;
+	}
+
+	public void setPercentageQuantityDrop(float percentageQuantityDrop) {
+		this.percentageQuantityDrop = percentageQuantityDrop;
+	}
+
+	public float getPercentageValuationDrop() {
+		return percentageValuationDrop;
+	}
+
+	public void setPercentageValuationDrop(float percentageValuationDrop) {
+		this.percentageValuationDrop = percentageValuationDrop;
 	}
 
 	public Behavior getBehavior() {

@@ -3,8 +3,11 @@
 	<Agent id="Buyer1">
 		<money>1000</money>
 		<waitTurn>2</waitTurn>
-		<behavior>normal</behavior>
-		<product id="Peixe1" valuation="3.0" quantityToBuy="50" minimumQuantity="20"></product>
+		<behavior>patient</behavior>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<product id="Peixe1" valuation="3.0" quantityToBuy="90" minimumQuantity="20"></product>
 		<product id="Peixe2" valuation="3.5" quantityToBuy="30" minimumQuantity="10"></product>	
 	</Agent>
 	
