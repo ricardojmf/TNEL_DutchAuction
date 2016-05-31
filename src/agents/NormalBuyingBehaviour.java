@@ -11,9 +11,9 @@ import jade.lang.acl.MessageTemplate;
  * Keep watching the auction, and before it closes, buy the remaining items 
  * (possibly at a smaller price that your valuation)."
 */
-public class SafeBuyingBehaviour extends SimpleBehaviour {
+public class NormalBuyingBehaviour extends SimpleBehaviour {
 
-	public SafeBuyingBehaviour(Agent a) {
+	public NormalBuyingBehaviour(Agent a) {
 		super(a);
 	}
 	
@@ -41,7 +41,7 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 			if(msg.getPerformative() == ACLMessage.CFP) {
 				System.out.println(myAgent.getLocalName()+" got a product message...");
 				
-				/* Format - ProductName, ProductPrice, ProductQuantity, TurnsLeft */
+				/* Format - ProductName, ProductPrice, ProductQuantity */
 				String[] product = msg.getContent().split(",");
 				String pname = product[0];
 				
@@ -50,8 +50,7 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 					
 					double price = Double.parseDouble(product[1]);
 					int qtt = Integer.parseInt(product[2]);
-					int turnsLeft = Integer.parseInt(product[3]);
-					int howMany = decideToBuy(price, qtt, turnsLeft);
+					int howMany = decideToBuy(price, qtt);
 					System.out.println(myAgent.getLocalName()+" how many i will buy: "+howMany+ " price: "+ price+" quantity: "+qtt);
 					
 					if(howMany > 0) {			
@@ -83,20 +82,26 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 		}		
 	}
 	
-	protected int decideToBuy(double price, int quantity, int turnsLeft) {
+	protected int decideToBuy(double price, int quantity) {
 		int toBuy = 0;
 		
 		if(!getBuyer().canBuy(price))
 			return 0;
 		
 		if(getBuyer().getProductBeingBought().obtainedMinimumQuantity()) {
-			if(getBuyer().hasReachedCriticalTurn(turnsLeft)) {
-				if(quantity >= getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
-					toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
-				}
-				else {
-					toBuy = quantity;
-				}
+			if(quantity >= getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
+				toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
+			}
+			else {
+				toBuy = quantity;
+			}
+			
+			if(toBuy > getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
+				toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
+			}
+			
+			if(toBuy < 0) {
+				toBuy = 0;
 			}
 		}
 		else {
@@ -117,11 +122,10 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 					toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
 				}
 				
+				if(toBuy < 0) {
+					toBuy = 0;
+				}
 			}
-		}
-		
-		if(toBuy < 0) {
-			toBuy = 0;
 		}
 		
 		return toBuy;		

@@ -2,12 +2,16 @@
 
 	<Agent id="Buyer1">
 		<money>1000</money>
+		<waitTurn>2</waitTurn>
+		<behavior>normal</behavior>
 		<product id="Peixe1" valuation="3.0" quantityToBuy="50" minimumQuantity="20"></product>
 		<product id="Peixe2" valuation="3.5" quantityToBuy="30" minimumQuantity="10"></product>	
 	</Agent>
 	
 	<Agent id="Buyer2">
 		<money>1000</money>
+		<waitTurn>1</waitTurn>
+		<behavior>safe</behavior>
 		<product id="Peixe1" valuation="3.5" quantityToBuy="20" minimumQuantity="10"></product>		
 	</Agent>
 	

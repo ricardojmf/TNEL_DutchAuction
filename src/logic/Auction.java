@@ -67,7 +67,7 @@ public class Auction {
 		for(int i = 0; i < buyers.size(); i++) {
 			BuyerProduct bp;
 			b = buyers.get(i);
-			System.out.println(i + ") " + b.getBuyerName() + " Money: " + b.getMoneyAtStart() + "\nProducts:");
+			System.out.println(i + ") " + b.getBuyerName() + " Money: " + b.getMoneyAtStart() + " " + b.getWaitTurn() +"\nProducts:");
 			for(int j = 0; j < b.getProductsToBuy().size(); j++) {
 				bp = b.getProductsToBuy().get(j);
 				System.out.println("\t "+bp.getName()+ " "+bp.getValuation()+" "+bp.getQuantityToBuy()+" "+bp.getMinimumQuantity());

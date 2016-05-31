@@ -2,7 +2,6 @@ package agents;
 
 import java.util.ArrayList;
 
-import agents.Auctioneer.AucioneerState;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -11,7 +10,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import logic.BuyerProduct;
-import logic.Product;
 
 public class Buyer extends Agent {
 	
@@ -22,6 +20,13 @@ public class Buyer extends Agent {
 		END
 	}
 	
+	public enum Behavior {
+		NORMAL,
+		SAFE,
+		PATIENT,
+		PANIC
+	}
+	
 	private BuyerState state;
 	private ArrayList<BuyerProduct> productsToBuy;
 	private BuyerProduct productExample = new BuyerProduct("sardinhas", 3.0, 50, 20);
@@ -30,8 +35,10 @@ public class Buyer extends Agent {
 	private double moneyAtStart;
 	private double currentMoney;
 	private int productBeingBought;
+	private int waitTurn;
+	private Behavior behavior;
 	
-	public Buyer(String name, double moneyAtStart, ArrayList<BuyerProduct> productsToBuy) {
+	public Buyer(String name, double moneyAtStart, ArrayList<BuyerProduct> productsToBuy, int waitTurn) {
 		this.name = name;
 		this.moneyAtStart = moneyAtStart;
 		this.currentMoney = moneyAtStart;
@@ -40,7 +47,7 @@ public class Buyer extends Agent {
 	}
 	
 	protected void setup() {
-		System.out.println("Starting buyer agent..." + getAID() + " " + getLocalName());
+		System.out.println("Starting buyer agent..." + getAID() + " " + getLocalName() + " (" + behavior+")");
 		state = BuyerState.WAIT;
 		
 		//register service
@@ -57,7 +64,23 @@ public class Buyer extends Agent {
 		}
 				
 		//add contract net behaviour 
-		addBehaviour(new SafeBuyingBehaviour(this, MessageTemplate.MatchPerformative(ACLMessage.CFP)));
+		switch(behavior) {
+			case NORMAL:
+				addBehaviour(new NormalBuyingBehaviour(this));
+				break;
+			case SAFE:
+				addBehaviour(new SafeBuyingBehaviour(this));
+				break;
+			case PATIENT:
+				addBehaviour(new SafeBuyingBehaviour(this));
+				break;
+			case PANIC:
+				addBehaviour(new SafeBuyingBehaviour(this));
+				break;
+			default:
+				addBehaviour(new SafeBuyingBehaviour(this));
+				break;
+		}
 	}
 	
 	protected void takeDown() {
@@ -118,6 +141,10 @@ public class Buyer extends Agent {
 		return false;
 	}
 	
+	public boolean hasReachedCriticalTurn(int turn) {
+		return turn <= waitTurn;
+	}
+	
 	public void resetItemBeingBought() {
 		this.productBeingBought = -1;
 	}
@@ -168,6 +195,37 @@ public class Buyer extends Agent {
 
 	public void setBuyerName(String name) {
 		this.name = name;
+	}
+
+	public int getWaitTurn() {
+		return waitTurn;
+	}
+
+	public void setWaitTurn(int waitTurn) {
+		this.waitTurn = waitTurn;
+	}
+
+	public Behavior getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(String b) {
+		
+		b = b.toLowerCase();
+		
+		if(b.equals("safe")) {
+			this.behavior = Behavior.SAFE;
+		}
+		else if(b.equals("patient")) {
+			this.behavior = Behavior.PATIENT;
+		}
+		else if(b.equals("panic")) {
+			this.behavior = Behavior.PANIC;
+		}
+		else {
+			this.behavior = Behavior.NORMAL;
+		}
+
 	}
 
 	public BuyerProduct getProductExample() {

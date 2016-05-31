@@ -68,7 +68,16 @@ public class ProductsLoader {
 				Element agent = (Element)agentNodes.item(i);
 				String id = agent.getAttribute("id");
 				double money = Double.parseDouble(agent.getElementsByTagName("money").item(0).getTextContent());
-	
+				String behavior = agent.getElementsByTagName("behavior").item(0).getTextContent();
+				NodeList wt = agent.getElementsByTagName("waitTurn");
+				int waitTurn;
+				if(wt.getLength() > 0) {
+					waitTurn = Integer.parseInt(wt.item(0).getTextContent());
+				}
+				else {
+					waitTurn = 0;
+				}
+				
 				ArrayList<BuyerProduct> productsToBuy = new ArrayList<BuyerProduct>();				
 				NodeList productNodes = agent.getElementsByTagName("product");
 				
@@ -82,7 +91,8 @@ public class ProductsLoader {
 					productsToBuy.add(bp);
 				}
 				
-				Buyer buyer = new Buyer(id, money, productsToBuy);
+				Buyer buyer = new Buyer(id, money, productsToBuy, waitTurn);
+				buyer.setBehavior(behavior);
 				buyers.add(buyer);
 			}
 			
