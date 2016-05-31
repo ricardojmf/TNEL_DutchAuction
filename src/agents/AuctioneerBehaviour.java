@@ -92,10 +92,12 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.ACCEPT_PROPOSAL);
 				}
 				else {
-					System.out.println("AUCTION rejecting proposal from "+msg.getSender().getLocalName());
-					getAuctioneer().replyBackToAgent(msg, "", ACLMessage.REJECT_PROPOSAL);
+					int proposeOtherQuantity = getAuctioneer().getCurrentProductQuantityLeft();
+					System.out.println("AUCTION rejecting proposal from "+msg.getSender().getLocalName()+" suggesting quantity "+proposeOtherQuantity);
+					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+proposeOtherQuantity;
+					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.REJECT_PROPOSAL);
 				}
-			}						
+			}
 		}
 		else {
 			long elapsedTime = System.currentTimeMillis() - startTime;

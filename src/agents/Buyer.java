@@ -27,6 +27,19 @@ public class Buyer extends Agent {
 		PANIC
 	}
 	
+	/*
+	 * How the agent acts when the auctioneer doesn't have the required quantity to sell (eg. Buyer wants to
+	 * buy 100 units, but Auctioneer only has 80 and asks if the Buyer wants those 80)
+	 * ALWAYS - always accept
+	 * NEVER - never accept
+	 * MINIMUM - only accept to fill the minimum acceptable quantity, if it wasn't reached
+	 */
+	public enum AcceptProposalBehavior {
+		ALWAYS,
+		NEVER,
+		MINIMUM
+	}
+	
 	private BuyerState state;
 	private ArrayList<BuyerProduct> productsToBuy;
 	private BuyerProduct productExample = new BuyerProduct("sardinhas", 3.0, 50, 20);
@@ -40,6 +53,7 @@ public class Buyer extends Agent {
 	private float percentageQuantityDrop;
 	private float percentageValuationDrop;
 	private Behavior behavior;
+	private AcceptProposalBehavior proposalBehavior;
 	
 	public Buyer(String name, double moneyAtStart, ArrayList<BuyerProduct> productsToBuy, int waitTurn) {
 		this.name = name;
@@ -277,6 +291,29 @@ public class Buyer extends Agent {
 			this.behavior = Behavior.NORMAL;
 		}
 
+	}
+	
+	public void setProposalBehavior(String p) {
+		
+		p = p.toLowerCase();
+		
+		if(p.equals("never")) {
+			this.proposalBehavior = AcceptProposalBehavior.NEVER;
+		}
+		else if(p.equals("always")) {
+			this.proposalBehavior = AcceptProposalBehavior.ALWAYS;
+		}
+		else if(p.equals("minimum")) {
+			this.proposalBehavior = AcceptProposalBehavior.MINIMUM;
+		}
+		else {
+			this.proposalBehavior = AcceptProposalBehavior.NEVER;
+		}
+
+	}
+	
+	public AcceptProposalBehavior getProposalBehavior() {
+		return this.proposalBehavior;
 	}
 
 	public BuyerProduct getProductExample() {

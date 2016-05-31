@@ -7,6 +7,7 @@
 		<percentagePriceDrop>0.3</percentagePriceDrop>
 		<percentageQuantityDrop>0.1</percentageQuantityDrop>
 		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<acceptLessThanProposedQuantity>always</acceptLessThanProposedQuantity>
 		<product id="Peixe1" valuation="3.0" quantityToBuy="90" minimumQuantity="20"></product>
 		<product id="Peixe2" valuation="3.5" quantityToBuy="30" minimumQuantity="10"></product>	
 	</Agent>
@@ -15,6 +16,7 @@
 		<money>1000</money>
 		<waitTurn>1</waitTurn>
 		<behavior>safe</behavior>
+		<acceptLessThanProposedQuantity>never</acceptLessThanProposedQuantity>
 		<product id="Peixe1" valuation="3.5" quantityToBuy="20" minimumQuantity="10"></product>		
 	</Agent>
 	

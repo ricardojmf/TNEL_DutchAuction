@@ -129,6 +129,10 @@ public class Auctioneer extends Agent {
 		getProductBeingSold().sell(quantity);
 	}
 	
+	public int getCurrentProductQuantityLeft() {
+		return getProductBeingSold().getQuantityAvailable();
+	}
+	
 	public boolean reduceCurrentProductPrice() {
 		if(getProductBeingSold().isAcceptablePrice()) {
 			getProductBeingSold().reducePrice();

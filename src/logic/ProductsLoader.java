@@ -69,6 +69,8 @@ public class ProductsLoader {
 				String id = agent.getAttribute("id");
 				double money = Double.parseDouble(agent.getElementsByTagName("money").item(0).getTextContent());
 				String behavior = agent.getElementsByTagName("behavior").item(0).getTextContent();
+				String acceptProposalBehavior = agent.getElementsByTagName("acceptLessThanProposedQuantity").item(0).getTextContent();
+				
 				NodeList wt = agent.getElementsByTagName("waitTurn");
 				int waitTurn;
 				if(wt.getLength() > 0) {
@@ -111,6 +113,7 @@ public class ProductsLoader {
 				Buyer buyer = new Buyer(id, money, productsToBuy, waitTurn);
 				buyer.setBehavior(behavior);
 				buyer.setPercentages(perPrice, perQuant, perVal);
+				buyer.setProposalBehavior(acceptProposalBehavior);
 				buyers.add(buyer);
 			}
 			
