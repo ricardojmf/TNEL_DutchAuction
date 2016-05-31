@@ -15,8 +15,11 @@
 	<Agent id="Buyer2">
 		<money>1000</money>
 		<waitTurn>1</waitTurn>
-		<behavior>safe</behavior>
+		<behavior>panic</behavior>
 		<acceptLessThanProposedQuantity>never</acceptLessThanProposedQuantity>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
 		<product id="Peixe1" valuation="3.5" quantityToBuy="20" minimumQuantity="10"></product>		
 	</Agent>
 	

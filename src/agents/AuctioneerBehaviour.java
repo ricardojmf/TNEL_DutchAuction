@@ -109,7 +109,11 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 	
 	protected void reducePrice() {
 		System.out.println("Reducing price...");
-		if(getAuctioneer().reduceCurrentProductPrice()) {
+		
+		if(getAuctioneer().getProductBeingSold().getQuantityAvailable() == 0){
+			getAuctioneer().setAucState(AucioneerState.NEXT_ITEM);
+		}
+		else if(getAuctioneer().reduceCurrentProductPrice()) {
 			getAuctioneer().setAucState(AucioneerState.START_CN);
 		}
 		else {

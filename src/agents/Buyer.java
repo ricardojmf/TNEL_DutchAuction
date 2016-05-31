@@ -92,7 +92,7 @@ public class Buyer extends Agent {
 				addBehaviour(new PatientBuyingBehaviour(this));
 				break;
 			case PANIC:
-				addBehaviour(new SafeBuyingBehaviour(this));
+				addBehaviour(new PanicBuyingBehaviour(this));
 				break;
 			default:
 				addBehaviour(new SafeBuyingBehaviour(this));
