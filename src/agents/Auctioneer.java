@@ -28,10 +28,13 @@ public class Auctioneer extends Agent {
 	private ArrayList<Product> productsToSell;
 	private int productBeingSoldIndex;
 	private Product productExample = new Product("sardinhas", 2.0, 4.0, 0.5, 2.5, 200);
+	private int currentTurn;
+	private int totalTurns;
 	
 	public Auctioneer(ArrayList<Product> products) {
 		productsToSell = products;
 		this.productBeingSoldIndex = 0;
+		setNumberOfTurns();
 	}
 	
 	protected void setup() {
@@ -43,6 +46,17 @@ public class Auctioneer extends Agent {
 	protected void takeDown() {
 		System.out.println("Ending auctioneer agent..." + getAID() + " " + getLocalName());
 		state = AucioneerState.END;
+	}
+	
+	protected void setNumberOfTurns() {
+		Product p = productsToSell.get(productBeingSoldIndex);
+		totalTurns = (int) (((p.getStartPrice() - p.getMinPrice()) / p.getIncrement()) + 1);
+		System.out.println("Total turns - "+totalTurns);
+		currentTurn = 1;
+	}
+	
+	public int getHowManyTurnsLeft() {
+		return totalTurns - currentTurn;
 	}
 	
 	public void initialize() {
@@ -94,6 +108,10 @@ public class Auctioneer extends Agent {
 		
 		if(productBeingSoldIndex >= productsToSell.size()) {
 			productBeingSoldIndex = -1;
+			totalTurns = 0;
+		}
+		else {
+			setNumberOfTurns();
 		}
 		
 		return productBeingSoldIndex;
@@ -114,6 +132,11 @@ public class Auctioneer extends Agent {
 	public boolean reduceCurrentProductPrice() {
 		if(getProductBeingSold().isAcceptablePrice()) {
 			getProductBeingSold().reducePrice();
+			currentTurn++;
+			
+			if(currentTurn > totalTurns)
+				currentTurn = totalTurns;
+			
 			return true;
 		}
 		return false;
@@ -150,6 +173,22 @@ public class Auctioneer extends Agent {
 
 	public void setProductsToSell(ArrayList<Product> productsToSell) {
 		this.productsToSell = productsToSell;
+	}
+
+	public int getTotalTurns() {
+		return totalTurns;
+	}
+
+	public void setTotalTurns(int totalTurns) {
+		this.totalTurns = totalTurns;
+	}
+
+	public int getCurrentTurn() {
+		return currentTurn;
+	}
+	
+	public void setCurrentTurn(int currentTurn) {
+		this.currentTurn = currentTurn;
 	}
 
 }

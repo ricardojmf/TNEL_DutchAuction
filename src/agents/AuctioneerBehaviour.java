@@ -55,7 +55,7 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 	
 	/*
 	 * Sends the initial message to sell an item
-	 * Message in the format "fish name, price per kg, quantity in kg"
+	 * Message in the format "fish name, price per kg, quantity in kg, turn number"
 	 */
 	protected void prepareCfps() {
 		System.out.println("AUCTION sending messages");
@@ -63,7 +63,8 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 		DFAgentDescription[] buyers = getAuctioneer().getParticipants();
 		int messageType = ACLMessage.CFP;
 		Product p = getAuctioneer().getProductBeingSold();
-		String message = p.getName() + "," + p.getCurrentPrice() + "," + p.getQuantityAvailable();
+		System.out.println("AUCTION Product " + p.getName() + " Round "+getAuctioneer().getCurrentTurn());
+		String message = p.getName() + "," + p.getCurrentPrice() + "," + p.getQuantityAvailable() + "," + getAuctioneer().getHowManyTurnsLeft();
 		getAuctioneer().sendMessageToAgents(buyers, message, messageType);
 		getAuctioneer().setAucState(AucioneerState.WAITING_FOR_RESPONSES);
 	}

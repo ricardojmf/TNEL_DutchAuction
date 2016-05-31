@@ -24,7 +24,7 @@ public class Product {
 	}
 	
 	public void reducePrice() {
-		currentPrice = currentPrice - increment;
+		currentPrice = Math.round((currentPrice - increment) * 100.0) / 100.0;
 		
 		if(currentPrice < 0)
 			currentPrice = 0;
