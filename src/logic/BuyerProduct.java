@@ -30,6 +30,10 @@ public class BuyerProduct {
 		return quantityToBuy - quantityBought;
 	}
 	
+	public boolean obtainedMinimumQuantity() {
+		return quantityBought >= minimumQuantity;
+	}
+	
 	public String getName() {
 		return name;
 	}

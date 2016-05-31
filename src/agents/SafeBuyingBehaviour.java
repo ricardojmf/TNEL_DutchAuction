@@ -25,10 +25,6 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 			case WAIT:
 				waitForResponses();
 				break;
-			case THINK:
-				break;
-			case ACT:
-				break;
 			case END:
 				System.out.println(myAgent.getLocalName()+" ending buying...");
 				done = true;
@@ -44,26 +40,22 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 		if(msg != null) {
 			if(msg.getPerformative() == ACLMessage.CFP) {
 				System.out.println(myAgent.getLocalName()+" got a product message...");
+				
+				/* Format - ProductName, ProductPrice, ProductQuantity */
 				String[] product = msg.getContent().split(",");
-				if(product[0].equals(getBuyer().getProductExample().getName())) {
-					System.out.println(myAgent.getLocalName()+" it's a product I want to buy...");
+				String pname = product[0];
+				
+				if(getBuyer().wantsToBuyItem(pname)) {					
+					System.out.println(myAgent.getLocalName()+" it's a product ("+pname+") I want to buy...");
+					
 					double price = Double.parseDouble(product[1]);
-					int qt = Integer.parseInt(product[2]);
-					if(price <= getBuyer().getProductExample().getValuation() && getBuyer().getProductExample().getQuantityLeftToBuy() > 0) {
-						int toBuy = 0;
-						if(qt >= getBuyer().getProductExample().getMinimumQuantity()) {
-							toBuy = getBuyer().getProductExample().getMinimumQuantity();
-						}
-						else {
-							toBuy = qt;
-						}
-						
-						if(toBuy > getBuyer().getProductExample().getQuantityLeftToBuy()) {
-							toBuy = getBuyer().getProductExample().getQuantityLeftToBuy();
-						}
-						
-						System.out.println(myAgent.getLocalName()+" proposing a price...");
-						getBuyer().replyBackToAgent(msg, ""+toBuy, ACLMessage.PROPOSE);
+					int qtt = Integer.parseInt(product[2]);
+					int howMany = decideToBuy(price, qtt);
+					System.out.println(myAgent.getLocalName()+" how many i will buy: "+howMany+ " price: "+ price+" quantity: "+qtt);
+					
+					if(howMany > 0) {			
+						System.out.println(myAgent.getLocalName()+" proposing a quantity for item "+pname+" : "+howMany+" out of "+qtt+" total being sold.");
+						getBuyer().replyBackToAgent(msg, ""+howMany, ACLMessage.PROPOSE);
 					}
 				}
 			}
@@ -71,13 +63,72 @@ public class SafeBuyingBehaviour extends SimpleBehaviour {
 				String[] product = msg.getContent().split(",");
 				double price = Double.parseDouble(product[0]);
 				int quantity = Integer.parseInt(product[1]);
-				System.out.println(myAgent.getLocalName()+" bought "+quantity+" for "+price);
+				System.out.println(myAgent.getLocalName()+" bought "+getBuyer().getProductBeingBought().getName()+ " : "+quantity+" units for "+price);
 				getBuyer().buy(price, quantity);
-				if(getBuyer().getProductExample().getQuantityLeftToBuy() == 0) {
+				if(getBuyer().getProductBeingBought().getQuantityLeftToBuy() == 0) {
+					getBuyer().setCurrentProductBeingBought(-1);
+				}
+			}
+			else if(msg.getPerformative() == ACLMessage.REJECT_PROPOSAL) {
+
+			}
+			else if(msg.getPerformative() == ACLMessage.INFORM) {
+				//auction end
+				String information = msg.getContent().toLowerCase();
+				if(information.equals("auction_end")) {
 					getBuyer().setBuyerState(BuyerState.END);
 				}
 			}
 		}		
+	}
+	
+	protected int decideToBuy(double price, int quantity) {
+		int toBuy = 0;
+		
+		if(!getBuyer().canBuy(price))
+			return 0;
+		
+		if(getBuyer().getProductBeingBought().obtainedMinimumQuantity()) {
+			if(quantity >= getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
+				toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
+			}
+			else {
+				toBuy = quantity;
+			}
+			
+			if(toBuy > getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
+				toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
+			}
+			
+			if(toBuy < 0) {
+				toBuy = 0;
+			}
+		}
+		else {
+			if(price <= getBuyer().getProductBeingBought().getValuation()) {
+				
+				if(quantity >= getBuyer().getProductBeingBought().getMinimumQuantity()) {
+					toBuy = getBuyer().getProductBeingBought().getMinimumQuantity();
+				}
+				else {
+					toBuy = quantity;
+				}
+				
+				if((toBuy + getBuyer().getProductBeingBought().getQuantityBought()) >= getBuyer().getProductBeingBought().getMinimumQuantity()) { 
+					toBuy = getBuyer().getProductBeingBought().getMinimumQuantity() - getBuyer().getProductBeingBought().getQuantityBought();
+				}
+				
+				if(toBuy > getBuyer().getProductBeingBought().getQuantityLeftToBuy()) {
+					toBuy = getBuyer().getProductBeingBought().getQuantityLeftToBuy();
+				}
+				
+				if(toBuy < 0) {
+					toBuy = 0;
+				}
+			}
+		}
+		
+		return toBuy;		
 	}
 	
 	/*

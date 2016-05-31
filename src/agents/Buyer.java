@@ -79,8 +79,16 @@ public class Buyer extends Agent {
 		this.send(msg);
 	}
 	
+	public BuyerProduct getProductBeingBought() {
+		if(productBeingBought >= 0 && productBeingBought < productsToBuy.size()) {
+			return productsToBuy.get(productBeingBought);
+		}		
+		
+		return null;
+	}
+	
 	public boolean buy(double price, int quantity) {
-		if((currentMoney - price) >= 0) {			
+		if((currentMoney - price) >= 0 && productBeingBought >= 0) {			
 			if(productsToBuy.get(productBeingBought).buy(quantity)) {
 				currentMoney -= price;
 				return true;
@@ -88,6 +96,30 @@ public class Buyer extends Agent {
 			return false;			
 		}
 		return false;
+	}
+	
+	public boolean canBuy(double price) {
+		return (currentMoney - price) >= 0;
+	}
+	
+	public boolean wantsToBuyItem(String name) {
+		String productName;
+		
+		for(int i = 0; i < productsToBuy.size(); i++) {
+			productName = productsToBuy.get(i).getName().toLowerCase();
+			if(productName.equals(name.toLowerCase())) { //item matches
+				if(productsToBuy.get(i).getQuantityLeftToBuy() > 0) { //we still want to buy it
+					this.productBeingBought = i;
+					return true;
+				}			
+			}
+		}
+		
+		return false;
+	}
+	
+	public void resetItemBeingBought() {
+		this.productBeingBought = -1;
 	}
 	
 	public BuyerState getBuyerState() {

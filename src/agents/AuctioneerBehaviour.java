@@ -1,7 +1,5 @@
 package agents;
 
-import java.util.Vector;
-
 import agents.Auctioneer.AucioneerState;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -33,9 +31,13 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 				reducePrice();
 				break;
 			case NEXT_ITEM:
+				nextItem();
 				break;
 			case END:
-				System.out.println("Ending auction...");
+				end();
+				break;
+			case STOP:
+				System.out.println("Ending auction, stopping agent...");
 				done = true;
 				break;
 			default:
@@ -60,10 +62,19 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 		startTime = System.currentTimeMillis();
 		DFAgentDescription[] buyers = getAuctioneer().getParticipants();
 		int messageType = ACLMessage.CFP;
-		Product p = getAuctioneer().getProductExample();
+		Product p = getAuctioneer().getProductBeingSold();
 		String message = p.getName() + "," + p.getCurrentPrice() + "," + p.getQuantityAvailable();
 		getAuctioneer().sendMessageToAgents(buyers, message, messageType);
 		getAuctioneer().setAucState(AucioneerState.WAITING_FOR_RESPONSES);
+	}
+	
+	protected void end() {
+		System.out.println("AUCTION ending - sending messages");
+		DFAgentDescription[] buyers = getAuctioneer().getParticipants();
+		int messageType = ACLMessage.INFORM;
+		String message = "auction_end";
+		getAuctioneer().sendMessageToAgents(buyers, message, messageType);
+		getAuctioneer().setAucState(AucioneerState.STOP);
 	}
 	
 	protected void waitForResponses() {
@@ -76,7 +87,7 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 				if(getAuctioneer().canSellCurrentProduct(unitsToSell)) {
 					System.out.println("AUCTION accepting proposal from "+msg.getSender().getLocalName()+" for "+unitsToSell+" units");
 					getAuctioneer().sellCurrentProduct(unitsToSell);
-					String message = getAuctioneer().getProductExample().getCurrentPrice()+","+unitsToSell;
+					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+unitsToSell;
 					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.ACCEPT_PROPOSAL);
 				}
 				else {
@@ -99,10 +110,22 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 			getAuctioneer().setAucState(AucioneerState.START_CN);
 		}
 		else {
-			getAuctioneer().setAucState(AucioneerState.END);//next item
+			getAuctioneer().setAucState(AucioneerState.NEXT_ITEM);//next item
 		}
 	}
 
+	protected void nextItem() {
+		System.out.println("Next item..");
+		int next = getAuctioneer().nextProduct();
+		
+		if(next < 0){
+			getAuctioneer().setAucState(AucioneerState.END);//no more items, end auction
+		}
+		else {
+			getAuctioneer().setAucState(AucioneerState.START_CN);
+		}
+	}
+	
 	@Override
 	public boolean done() {
 		return done;

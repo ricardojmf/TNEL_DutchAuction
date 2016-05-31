@@ -1,19 +1,19 @@
 <Products>
 
 	<Product id="Peixe1">
-		<quantity>500</quantity>
-		<value>100</value>
-		<startPrice>150</startPrice>
-		<minAcceptablePrice>110</minAcceptablePrice>
-		<increment>5</increment>		
+		<quantity>100</quantity>
+		<value>2.0</value>
+		<startPrice>5.0</startPrice>
+		<minAcceptablePrice>2.5</minAcceptablePrice>
+		<increment>0.5</increment>		
 	</Product>
 	
 	<Product id="Peixe2">
-		<quantity>500</quantity>
-		<value>20</value>
-		<startPrice>25</startPrice>
-		<minAcceptablePrice>15</minAcceptablePrice>
-		<increment>1</increment>		
+		<quantity>50</quantity>
+		<value>3.0</value>
+		<startPrice>4.0</startPrice>
+		<minAcceptablePrice>3.2</minAcceptablePrice>
+		<increment>0.2</increment>		
 	</Product>
 	
 </Products>

@@ -17,7 +17,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		System.out.println("Registering auctioneer...");
-		/*auction.createAuctioneerAgent();*/	
+		auction.createAuctioneerAgent();	
 		auction.printProducts();
 		auction.printBuyers();
 	}

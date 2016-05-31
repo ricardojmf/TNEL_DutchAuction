@@ -106,7 +106,7 @@ public class Auction {
 		Object[] agentArgs = new Object[0];
 		AgentController ac;
 		try {
-			Auctioneer a = new Auctioneer();
+			Auctioneer a = new Auctioneer(products);
 			ac = container.acceptNewAgent("Auctioneer", a);
 			ac.start();
 		} catch (StaleProxyException e) {

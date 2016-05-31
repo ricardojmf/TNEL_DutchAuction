@@ -19,13 +19,20 @@ public class Auctioneer extends Agent {
 		SELLING,
 		REDUCING_PRICE,
 		NEXT_ITEM,
-		END
+		END, //send message to end auction
+		STOP //stop agent
 	}
 	
 	private AucioneerState state;
 	private DFAgentDescription[] participants;
 	private ArrayList<Product> productsToSell;
+	private int productBeingSoldIndex;
 	private Product productExample = new Product("sardinhas", 2.0, 4.0, 0.5, 2.5, 200);
+	
+	public Auctioneer(ArrayList<Product> products) {
+		productsToSell = products;
+		this.productBeingSoldIndex = 0;
+	}
 	
 	protected void setup() {
 		System.out.println("Starting auctioneer agent..." + getAID() + " " + getLocalName());
@@ -82,17 +89,31 @@ public class Auctioneer extends Agent {
 		this.send(msg);
 	}
 	
+	public int nextProduct() {
+		productBeingSoldIndex++;
+		
+		if(productBeingSoldIndex >= productsToSell.size()) {
+			productBeingSoldIndex = -1;
+		}
+		
+		return productBeingSoldIndex;
+	}
+	
+	public Product getProductBeingSold() {
+		return productsToSell.get(productBeingSoldIndex);
+	}
+	
 	public boolean canSellCurrentProduct(int quantity) {
-		return productExample.isPossibleToSell(quantity);
+		return getProductBeingSold().isPossibleToSell(quantity);
 	}
 	
 	public void sellCurrentProduct(int quantity) {
-		productExample.sell(quantity);
+		getProductBeingSold().sell(quantity);
 	}
 	
 	public boolean reduceCurrentProductPrice() {
-		if(productExample.isAcceptablePrice()) {
-			productExample.reducePrice();
+		if(getProductBeingSold().isAcceptablePrice()) {
+			getProductBeingSold().reducePrice();
 			return true;
 		}
 		return false;
@@ -115,6 +136,14 @@ public class Auctioneer extends Agent {
 		return productExample;
 	}
 	
+	public int getProductBeingSoldIndex() {
+		return productBeingSoldIndex;
+	}
+
+	public void setProductBeingSoldIndex(int productBeingSoldIndex) {
+		this.productBeingSoldIndex = productBeingSoldIndex;
+	}
+
 	public ArrayList<Product> getProductsToSell() {
 		return productsToSell;
 	}
