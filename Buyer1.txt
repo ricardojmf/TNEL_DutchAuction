@@ -1,0 +1,36 @@
+================BUYER INFORMATION================
+Buyer name: Buyer1
+Buyer behaviour: PATIENT
+Proposal behaviour: ALWAYS
+Starting money: 1000.0
+Money left: 993.6
+Other data:
+ 	Critical decision turn: 0
+ 	Quantity Percentage Drop: 0.1
+ 	Valuation Percentage Drop/Increase: 0.3
+Products Bought:
+===
+Product name: peixe1
+Quantity bought: 80 units out of 90 total units.
+Initial valuation: 3.0
+Final valuation: 3.0
+# Accepted bids: 1
+# Rejected bids: 0
+# Total bids: 1
+Accepted Bids: 
+	 Bid #0: Units - 80 / Price - 3.0
+Rejected Bids: 
+	 No rejected bids. 
+===
+Product name: peixe2
+Quantity bought: 30 units out of 30 total units.
+Initial valuation: 3.5
+Final valuation: 3.5
+# Accepted bids: 1
+# Rejected bids: 0
+# Total bids: 1
+Accepted Bids: 
+	 Bid #0: Units - 30 / Price - 3.4
+Rejected Bids: 
+	 No rejected bids. 
+======================================================

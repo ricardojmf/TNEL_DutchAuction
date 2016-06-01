@@ -37,8 +37,7 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 				end();
 				break;
 			case STOP:
-				System.out.println("Ending auction, stopping agent...");
-				done = true;
+				stopAuctioneer();
 				break;
 			default:
 				break;
@@ -78,6 +77,12 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 		getAuctioneer().setAucState(AucioneerState.STOP);
 	}
 	
+	protected void stopAuctioneer() {
+		System.out.println("Ending auction, stopping agent...");
+		getAuctioneer().printInformation();
+		done = true;
+	}
+	
 	protected void waitForResponses() {
 		ACLMessage msg = myAgent.receive();
 		if(msg != null) {
@@ -89,13 +94,15 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 					System.out.println("AUCTION accepting proposal from "+msg.getSender().getLocalName()+" for "+unitsToSell+" units");
 					getAuctioneer().sellCurrentProduct(unitsToSell);
 					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+unitsToSell;
+					getAuctioneer().getProductBeingSold().insertNewAcceptedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell);
 					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.ACCEPT_PROPOSAL);
 				}
 				else {
 					int proposeOtherQuantity = getAuctioneer().getCurrentProductQuantityLeft();
 					System.out.println("AUCTION rejecting proposal from "+msg.getSender().getLocalName()+" suggesting quantity "+proposeOtherQuantity);
 					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+proposeOtherQuantity;
-					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.REJECT_PROPOSAL);
+					getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell);
+					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.REJECT_PROPOSAL);				
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package agents;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import jade.core.AID;
@@ -146,6 +147,27 @@ public class Auctioneer extends Agent {
 		return false;
 	}
 
+	public void printInformation() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("================AUCTIONEER INFORMATION================\r\n");
+		for(Product p : productsToSell) {
+			sb.append(p.printFinalInformation());
+		}
+		sb.append("======================================================\r\n");
+		
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter("auctioneer.txt");
+			out.write(sb.toString());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			out.close();
+		}
+	}
+	
 	public void setParticipants(DFAgentDescription[] participants) {
 		this.participants = participants;
 	}

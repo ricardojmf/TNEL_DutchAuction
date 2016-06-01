@@ -1,5 +1,6 @@
 package agents;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import jade.core.Agent;
@@ -10,6 +11,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import logic.BuyerProduct;
+import logic.Product;
 
 public class Buyer extends Agent {
 	
@@ -184,6 +186,37 @@ public class Buyer extends Agent {
 		this.percentagePriceDrop = percentagePriceDrop;
 		this.percentageQuantityDrop = percentageQuantityDrop;
 		this.percentageValuationDrop = percentageValuationDrop;
+	}
+	
+	public void printInformation() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("================BUYER INFORMATION================");
+		sb.append("\r\nBuyer name: "+name);
+		sb.append("\r\nBuyer behaviour: "+behavior);
+		sb.append("\r\nProposal behaviour: "+proposalBehavior);
+		sb.append("\r\nStarting money: "+moneyAtStart);
+		sb.append("\r\nMoney left: "+currentMoney);
+		sb.append("\r\nOther data:");
+		sb.append("\r\n \tCritical decision turn: "+waitTurn);
+		sb.append("\r\n \tQuantity Percentage Drop: "+percentageQuantityDrop);
+		sb.append("\r\n \tValuation Percentage Drop/Increase: "+percentagePriceDrop);
+		sb.append("\r\nProducts Bought:"+"\r\n");
+		for(BuyerProduct bp : productsToBuy) {
+			sb.append(bp.printFinalInformation());
+		}
+		sb.append("======================================================\r\n");
+		
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter(name+".txt");
+			out.write(sb.toString());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			out.close();
+		}
 	}
 	
 	public void resetItemBeingBought() {

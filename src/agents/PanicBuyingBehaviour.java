@@ -29,8 +29,7 @@ public class PanicBuyingBehaviour extends SimpleBehaviour {
 				waitForResponses();
 				break;
 			case END:
-				System.out.println(myAgent.getLocalName()+" ending buying...");
-				done = true;
+				end();
 				break;
 			default:
 				break;
@@ -113,6 +112,7 @@ public class PanicBuyingBehaviour extends SimpleBehaviour {
 		int quantity = Integer.parseInt(product[1]);
 		System.out.println(myAgent.getLocalName()+" bought "+getBuyer().getProductBeingBought().getName()+ " : "+quantity+" units for "+price);
 		getBuyer().buy(price, quantity);
+		getBuyer().getProductBeingBought().insertNewAcceptedBid(price, quantity);
 		if(getBuyer().getProductBeingBought().getQuantityLeftToBuy() == 0) {
 			getBuyer().setCurrentProductBeingBought(-1);
 		}
@@ -127,7 +127,11 @@ public class PanicBuyingBehaviour extends SimpleBehaviour {
 		
 		if(quantity != 0 && thinkAcceptNewQuantity(quantity)) {
 			System.out.println(myAgent.getLocalName()+" proposing a quantity suggested : "+quantity);
+			getBuyer().getProductBeingBought().insertNewAcceptedBid(price, quantity);
 			getBuyer().replyBackToAgent(msg, ""+quantity, ACLMessage.PROPOSE);
+		}
+		else {
+			getBuyer().getProductBeingBought().insertNewRejectedBid(price, quantity);
 		}
 	}
 	
@@ -191,6 +195,12 @@ public class PanicBuyingBehaviour extends SimpleBehaviour {
 		}
 		
 		return toBuy;		
+	}
+	
+	public void end() {
+		System.out.println(myAgent.getLocalName()+" ending buying...");
+		getBuyer().printInformation();
+		done = true;
 	}
 	
 	/*
