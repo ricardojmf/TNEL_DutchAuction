@@ -15,7 +15,7 @@ public class Product {
 	private int quantityAtStart;
 	private int quantityAvailable;
 	
-	private HashMap<Double,Integer> acceptedBidsRecord;
+	private HashMap<Double,Integer> acceptedBidsRecord;	
 	private HashMap<Double,Integer> rejectedBidsRecord;
 	
 	public Product(String name, double actualValue, double startPrice, double increment, double minPrice, int quantity) {
@@ -119,6 +119,18 @@ public class Product {
 	
 	public HashMap<Double,Integer> getRejectedBids() {
 		return rejectedBidsRecord;
+	}
+	
+	public HashMap<Double,Integer> getFilteredRejectedBids() {
+		HashMap<Double,Integer> bids = new HashMap<Double,Integer>();
+		
+		for(Entry e : rejectedBidsRecord.entrySet()) {
+			if(!acceptedBidsRecord.containsKey(e.getKey())) {
+				bids.put((double)e.getKey(), (int)e.getValue());
+			}
+		}
+		
+		return bids;
 	}
 	
 	public double getEarnings() {

@@ -1,5 +1,6 @@
 package agents;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,7 +9,12 @@ import java.util.Map.Entry;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
 import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
 import org.knowm.xchart.internal.chartpart.Chart;
+import org.knowm.xchart.style.lines.SeriesLines;
+import org.knowm.xchart.style.markers.SeriesMarkers;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -177,7 +183,7 @@ public class Auctioneer extends Agent {
 	}
 	
 	public void drawPlots() {
-		Chart chart;
+		XYChart chart;
 		double[] xData;
 		double[] yData;
 		int i;
@@ -194,7 +200,7 @@ public class Auctioneer extends Agent {
 				i++;
 			}
 		    
-		    for(Entry e : p.getRejectedBids().entrySet()) {
+		    for(Entry e : p.getFilteredRejectedBids().entrySet()) {
 				double price = (double)e.getKey();
 				double quantity = ((Integer)e.getValue()).doubleValue();
 				xData[i] = price;
@@ -203,7 +209,19 @@ public class Auctioneer extends Agent {
 			}
 		    
 			// Create Chart
-		    chart = QuickChart.getChart("Sample Chart", "Price", "Bids", "Quantity Bid by Price", xData, yData);
+		    chart = new XYChartBuilder().title(p.getName()+"_bidsByPrice").xAxisTitle("Price").yAxisTitle("Bids").build();
+		    //QuickChart.getChart("Sample Chart", "Price", "Bids", "Quantity Bid by Price", xData, yData);
+		    XYSeries series = chart.addSeries("Quantity Bid by Price", xData, yData);
+		    chart.getStyler().setPlotGridLinesVisible(false);
+		    chart.getStyler().setAxisTicksLineVisible(false);
+		    chart.getStyler().setAxisTicksMarksVisible(true);
+		    chart.getStyler().setAxisTickMarkLength(15);
+		    series.setMarkerColor(Color.ORANGE);
+		    series.setMarker(SeriesMarkers.CIRCLE);
+		    series.setLineStyle(SeriesLines.NONE);
+
+		    chart.getStyler().setXAxisDecimalPattern("#0.00");
+		    
 		    // Save it
 		    try {
 				BitmapEncoder.saveBitmap(chart, "results/plots/"+p.getName()+"_bidsByPrice", BitmapFormat.PNG);

@@ -109,6 +109,7 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 		else {
 			long elapsedTime = System.currentTimeMillis() - startTime;
 			if(elapsedTime/1000F > 5.0) {
+				getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), 0);
 				getAuctioneer().setAucState(AucioneerState.REDUCING_PRICE);
 			}
 		}		
