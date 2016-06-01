@@ -25,27 +25,35 @@ Rejected Bids:
 ===
 ===
 Product name: sardinha
-Quantity sold: 50 units out of 50 total units.
+Quantity sold: 190 units out of 300 total units.
 
 Initial Price: 10.0
-# Accepted bids: 2
+# Accepted bids: 5
 # Rejected bids: 0
-# Total bids: 2
-Earnings: 170.0
+# Total bids: 5
+Earnings: 565.0
 Accepted Bids: 
-	 Bid #0: Units - 20 / Price - 5.5 / Buyer - Buyer4
-	 Bid #1: Units - 10 / Price - 6.0 / Buyer - Buyer3
+	 Bid #0: Units - 35 / Price - 4.0 / Buyer - Buyer2
+	 Bid #1: Units - 20 / Price - 5.5 / Buyer - Buyer3
+	 Bid #2: Units - 10 / Price - 6.0 / Buyer - Buyer3
+	 Bid #3: Units - 50 / Price - 3.0 / Buyer - Buyer5
+	 Bid #4: Units - 30 / Price - 3.5 / Buyer - Buyer4
 Rejected Bids: 
 	 Bid #0: Units - 0 / Price - 8.0 / Buyer - none
 	 Bid #1: Units - 0 / Price - 8.5 / Buyer - none
 	 Bid #2: Units - 0 / Price - 9.0 / Buyer - none
 	 Bid #3: Units - 0 / Price - 9.5 / Buyer - none
 	 Bid #4: Units - 0 / Price - 10.0 / Buyer - none
-	 Bid #5: Units - 0 / Price - 5.5 / Buyer - none
-	 Bid #6: Units - 0 / Price - 6.0 / Buyer - none
-	 Bid #7: Units - 0 / Price - 6.5 / Buyer - none
-	 Bid #8: Units - 0 / Price - 7.0 / Buyer - none
-	 Bid #9: Units - 0 / Price - 7.5 / Buyer - none
+	 Bid #5: Units - 0 / Price - 3.0 / Buyer - none
+	 Bid #6: Units - 0 / Price - 3.5 / Buyer - none
+	 Bid #7: Units - 0 / Price - 4.0 / Buyer - none
+	 Bid #8: Units - 0 / Price - 4.5 / Buyer - none
+	 Bid #9: Units - 0 / Price - 5.0 / Buyer - none
+	 Bid #10: Units - 0 / Price - 5.5 / Buyer - none
+	 Bid #11: Units - 0 / Price - 6.0 / Buyer - none
+	 Bid #12: Units - 0 / Price - 6.5 / Buyer - none
+	 Bid #13: Units - 0 / Price - 7.0 / Buyer - none
+	 Bid #14: Units - 0 / Price - 7.5 / Buyer - none
 ===
 ===
 Product name: pescada

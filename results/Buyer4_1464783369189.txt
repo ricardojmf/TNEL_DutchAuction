@@ -3,7 +3,7 @@ Buyer name: Buyer4
 Buyer behaviour: PANIC
 Proposal behaviour: MINIMUM
 Starting money: 1000.0
-Money left: 790.0
+Money left: 795.0
 Other data:
  	Critical decision turn: 0
  	Quantity Percentage Drop: 0.1
@@ -11,15 +11,15 @@ Other data:
 Products Bought:
 ===
 Product name: sardinha
-Quantity bought: 20 units out of 30 total units.
+Quantity bought: 30 units out of 30 total units.
 Reached minimum quantity: YES
 Initial valuation: 3.0
-Final valuation: 6.6
+Final valuation: 4.2
 # Accepted bids: 1
 # Rejected bids: 0
 # Total bids: 1
 Accepted Bids: 
-	 Bid #0: Units - 20 / Price - 5.5
+	 Bid #0: Units - 30 / Price - 3.5
 Rejected Bids: 
 	 No rejected bids. 
 ===

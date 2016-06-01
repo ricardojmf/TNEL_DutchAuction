@@ -33,7 +33,7 @@ Initial Price: 10.0
 # Total bids: 2
 Earnings: 170.0
 Accepted Bids: 
-	 Bid #0: Units - 20 / Price - 5.5 / Buyer - Buyer4
+	 Bid #0: Units - 20 / Price - 5.5 / Buyer - Buyer1
 	 Bid #1: Units - 10 / Price - 6.0 / Buyer - Buyer3
 Rejected Bids: 
 	 Bid #0: Units - 0 / Price - 8.0 / Buyer - none

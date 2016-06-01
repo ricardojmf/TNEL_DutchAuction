@@ -9,7 +9,7 @@
 	</Product>
 	
 	<Product id="Sardinha">
-		<quantity>50</quantity>
+		<quantity>300</quantity>
 		<value>2.0</value>
 		<startPrice>10.0</startPrice>
 		<minAcceptablePrice>3.0</minAcceptablePrice>

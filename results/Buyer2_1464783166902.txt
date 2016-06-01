@@ -41,8 +41,8 @@ Rejected Bids:
 Product name: sardinha
 Quantity bought: 0 units out of 50 total units.
 Reached minimum quantity: NO
-Initial valuation: 2.5
-Final valuation: 2.5
+Initial valuation: 4.0
+Final valuation: 4.0
 # Accepted bids: 0
 # Rejected bids: 0
 # Total bids: 0
