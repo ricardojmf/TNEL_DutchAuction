@@ -161,6 +161,7 @@ public class Auctioneer extends Agent {
 	}
 
 	public void printInformation() {
+		String extraname = null;
 		StringBuilder sb = new StringBuilder();
 		sb.append("================AUCTIONEER INFORMATION================\r\n");
 		for(Product p : productsToSell) {
@@ -170,7 +171,8 @@ public class Auctioneer extends Agent {
 		
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter("results/auctioneer.txt");
+			extraname = ""+System.currentTimeMillis();
+			out = new PrintWriter("results/auctioneer_"+extraname+".txt");
 			out.write(sb.toString());
 		}
 		catch(Exception e) {
@@ -178,11 +180,11 @@ public class Auctioneer extends Agent {
 		}
 		finally {
 			out.close();
-			drawPlots();
+			drawPlots(extraname);
 		}
 	}
 	
-	public void drawPlots() {
+	public void drawPlots(String extraName) {
 		XYChart chart;
 		double[] xData;
 		double[] yData;
@@ -216,7 +218,7 @@ public class Auctioneer extends Agent {
 		    chart.getStyler().setAxisTicksLineVisible(false);
 		    chart.getStyler().setAxisTicksMarksVisible(true);
 		    chart.getStyler().setAxisTickMarkLength(15);
-		    series.setMarkerColor(Color.ORANGE);
+		    series.setMarkerColor(Color.BLUE);
 		    series.setMarker(SeriesMarkers.CIRCLE);
 		    series.setLineStyle(SeriesLines.NONE);
 
@@ -224,7 +226,7 @@ public class Auctioneer extends Agent {
 		    
 		    // Save it
 		    try {
-				BitmapEncoder.saveBitmap(chart, "results/plots/"+p.getName()+"_bidsByPrice", BitmapFormat.PNG);
+				BitmapEncoder.saveBitmap(chart, "results/plots/"+p.getName()+"_bidsByPrice_"+extraName, BitmapFormat.PNG);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

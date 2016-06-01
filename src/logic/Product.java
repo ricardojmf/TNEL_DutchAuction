@@ -150,11 +150,18 @@ public class Product {
 	}
 	
 	public int getTotalAmountOfRejectedBids() {
-		return rejectedBidsRecord.size();
+		int rej = 0;
+		
+		for(Entry e : rejectedBidsRecord.entrySet()) {
+			if((int)e.getValue() > 0)
+				rej++;
+		}
+		
+		return rej;
 	}
 	
-	public int getTotalAmountOfBids() {
-		return acceptedBidsRecord.size() + rejectedBidsRecord.size();
+	public int getTotalAmountOfBids(int rej) {
+		return acceptedBidsRecord.size() + rej;
 	}
 	
 	public String printFinalInformation() {
@@ -163,8 +170,9 @@ public class Product {
 		sb.append("\r\nQuantity sold: " + (quantityAtStart - quantityAvailable) + " units out of " + quantityAtStart + " total units."+"\n");
 		sb.append("\r\nInitial Price: " + startPrice);
 		sb.append("\r\n# Accepted bids: " + getTotalAmountOfAcceptedBids());
-		sb.append("\r\n# Rejected bids: " + getTotalAmountOfRejectedBids());
-		sb.append("\r\n# Total bids: " + getTotalAmountOfBids());
+		int rej = getTotalAmountOfRejectedBids();
+		sb.append("\r\n# Rejected bids: " + rej);
+		sb.append("\r\n# Total bids: " + getTotalAmountOfBids(rej));
 		sb.append("\r\nEarnings: " + getEarnings() +"\r\n");
 		
 		sb.append("Accepted Bids: \r\n");

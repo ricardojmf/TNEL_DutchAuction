@@ -132,7 +132,7 @@ public class Buyer extends Agent {
 	public boolean buy(double price, int quantity) {
 		if((currentMoney - price) >= 0 && productBeingBought >= 0) {			
 			if(productsToBuy.get(productBeingBought).buy(quantity)) {
-				currentMoney -= price;
+				currentMoney -= (price * quantity);
 				return true;
 			}
 			return false;			
@@ -208,7 +208,7 @@ public class Buyer extends Agent {
 		
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter("results/"+name+".txt");
+			out = new PrintWriter("results/"+name+"_"+System.currentTimeMillis()+".txt");
 			out.write(sb.toString());
 		}
 		catch(Exception e) {
