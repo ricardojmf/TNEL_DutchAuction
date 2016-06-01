@@ -1,7 +1,14 @@
 package agents;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map.Entry;
+
+import org.knowm.xchart.BitmapEncoder;
+import org.knowm.xchart.BitmapEncoder.BitmapFormat;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.internal.chartpart.Chart;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -157,7 +164,7 @@ public class Auctioneer extends Agent {
 		
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter("auctioneer.txt");
+			out = new PrintWriter("results/auctioneer.txt");
 			out.write(sb.toString());
 		}
 		catch(Exception e) {
@@ -165,6 +172,44 @@ public class Auctioneer extends Agent {
 		}
 		finally {
 			out.close();
+			drawPlots();
+		}
+	}
+	
+	public void drawPlots() {
+		Chart chart;
+		double[] xData;
+		double[] yData;
+		int i;
+	    
+		for(Product p : productsToSell) {
+			xData = new double[p.getAcceptedBids().size() + p.getRejectedBids().size()];
+		    yData = new double[p.getAcceptedBids().size() + p.getRejectedBids().size()];
+		    i = 0;
+		    for(Entry e : p.getAcceptedBids().entrySet()) {
+				double price = (double)e.getKey();
+				double quantity = ((Integer)e.getValue()).doubleValue();
+				xData[i] = price;
+				yData[i] = quantity;
+				i++;
+			}
+		    
+		    for(Entry e : p.getRejectedBids().entrySet()) {
+				double price = (double)e.getKey();
+				double quantity = ((Integer)e.getValue()).doubleValue();
+				xData[i] = price;
+				yData[i] = quantity;
+				i++;
+			}
+		    
+			// Create Chart
+		    chart = QuickChart.getChart("Sample Chart", "Price", "Bids", "Quantity Bid by Price", xData, yData);
+		    // Save it
+		    try {
+				BitmapEncoder.saveBitmap(chart, "results/plots/"+p.getName()+"_bidsByPrice", BitmapFormat.PNG);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	

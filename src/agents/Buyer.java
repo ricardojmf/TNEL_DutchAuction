@@ -208,7 +208,7 @@ public class Buyer extends Agent {
 		
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter(name+".txt");
+			out = new PrintWriter("results/"+name+".txt");
 			out.write(sb.toString());
 		}
 		catch(Exception e) {
