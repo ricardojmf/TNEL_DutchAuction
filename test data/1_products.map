@@ -1,0 +1,43 @@
+<Products>
+
+	<Product id="Dourada">
+		<quantity>100</quantity>
+		<value>6.0</value>
+		<startPrice>20.0</startPrice>
+		<minAcceptablePrice>11.0</minAcceptablePrice>
+		<increment>1.0</increment>		
+	</Product>
+	
+	<Product id="Sardinha">
+		<quantity>50</quantity>
+		<value>2.0</value>
+		<startPrice>10.0</startPrice>
+		<minAcceptablePrice>3.0</minAcceptablePrice>
+		<increment>0.5</increment>		
+	</Product>
+	
+	<Product id="Pescada">
+		<quantity>300</quantity>
+		<value>3.0</value>
+		<startPrice>4.0</startPrice>
+		<minAcceptablePrice>3.2</minAcceptablePrice>
+		<increment>0.2</increment>		
+	</Product>
+	
+	<Product id="Tamboril">
+		<quantity>50</quantity>
+		<value>5.0</value>
+		<startPrice>10.0</startPrice>
+		<minAcceptablePrice>6.2</minAcceptablePrice>
+		<increment>0.2</increment>		
+	</Product>
+	
+	<Product id="Carapau">
+		<quantity>100</quantity>
+		<value>0.5</value>
+		<startPrice>6.0</startPrice>
+		<minAcceptablePrice>0.5</minAcceptablePrice>
+		<increment>0.5</increment>		
+	</Product>
+	
+</Products>

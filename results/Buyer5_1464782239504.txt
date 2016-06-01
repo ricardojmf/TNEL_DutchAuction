@@ -1,0 +1,38 @@
+================BUYER INFORMATION================
+Buyer name: Buyer5
+Buyer behaviour: PATIENT
+Proposal behaviour: MINIMUM
+Starting money: 800.0
+Money left: 590.0
+Other data:
+ 	Critical decision turn: 0
+ 	Quantity Percentage Drop: 0.1
+ 	Valuation Percentage Drop/Increase: 0.3
+Products Bought:
+===
+Product name: tamboril
+Quantity bought: 30 units out of 30 total units.
+Reached minimum quantity: YES
+Initial valuation: 7.0
+Final valuation: 7.0
+# Accepted bids: 1
+# Rejected bids: 0
+# Total bids: 1
+Accepted Bids: 
+	 Bid #0: Units - 30 / Price - 7.0
+Rejected Bids: 
+	 No rejected bids. 
+===
+Product name: carapau
+Quantity bought: 0 units out of 30 total units.
+Reached minimum quantity: NO
+Initial valuation: 3.0
+Final valuation: 0.8
+# Accepted bids: 0
+# Rejected bids: 0
+# Total bids: 0
+Accepted Bids: 
+	 No accepted bids. 
+Rejected Bids: 
+	 No rejected bids. 
+======================================================

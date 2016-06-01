@@ -1,0 +1,26 @@
+================BUYER INFORMATION================
+Buyer name: Buyer3
+Buyer behaviour: NORMAL
+Proposal behaviour: ALWAYS
+Starting money: 200.0
+Money left: 30.0
+Other data:
+ 	Critical decision turn: 0
+ 	Quantity Percentage Drop: 0.1
+ 	Valuation Percentage Drop/Increase: 0.3
+Products Bought:
+===
+Product name: sardinha
+Quantity bought: 30 units out of 30 total units.
+Reached minimum quantity: YES
+Initial valuation: 6.0
+Final valuation: 6.0
+# Accepted bids: 2
+# Rejected bids: 0
+# Total bids: 2
+Accepted Bids: 
+	 Bid #0: Units - 20 / Price - 5.5
+	 Bid #1: Units - 10 / Price - 6.0
+Rejected Bids: 
+	 No rejected bids. 
+======================================================

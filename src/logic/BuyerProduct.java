@@ -124,6 +124,8 @@ public class BuyerProduct {
 		StringBuilder sb = new StringBuilder();
 		sb.append("===\r\nProduct name: " + name.toLowerCase()+"\r\n");
 		sb.append("Quantity bought: " + quantityBought + " units out of " + quantityToBuy + " total units."+"\r\n");
+		String reached = obtainedMinimumQuantity()? "YES" : "NO";
+		sb.append("Reached minimum quantity: " + reached + "\r\n");
 		sb.append("Initial valuation: " + initialValuation +"\r\n");
 		sb.append("Final valuation: " + valuation +"\r\n");
 		sb.append("# Accepted bids: " + getTotalAmountOfAcceptedBids() +"\r\n");

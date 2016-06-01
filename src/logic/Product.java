@@ -15,8 +15,8 @@ public class Product {
 	private int quantityAtStart;
 	private int quantityAvailable;
 	
-	private HashMap<Double,Integer> acceptedBidsRecord;	
-	private HashMap<Double,Integer> rejectedBidsRecord;
+	private HashMap<Double,Bid> acceptedBidsRecord;	
+	private HashMap<Double,Bid> rejectedBidsRecord;
 	
 	public Product(String name, double actualValue, double startPrice, double increment, double minPrice, int quantity) {
 		this.name = name;
@@ -27,8 +27,8 @@ public class Product {
 		this.minAcceptablePrice = minPrice;
 		this.quantityAtStart = quantity;
 		this.quantityAvailable = quantity;
-		this.acceptedBidsRecord = new HashMap<Double,Integer>();
-		this.rejectedBidsRecord = new HashMap<Double,Integer>();
+		this.acceptedBidsRecord = new HashMap<Double,Bid>();
+		this.rejectedBidsRecord = new HashMap<Double,Bid>();
 	}
 	
 	public void reducePrice() {
@@ -105,19 +105,19 @@ public class Product {
 		this.currentPrice = currentPrice;
 	}
 	
-	public void insertNewAcceptedBid(double price, int quantity) {
-		acceptedBidsRecord.put(price, quantity);
+	public void insertNewAcceptedBid(double price, int quantity, String buyer) {
+		acceptedBidsRecord.put(price, new Bid(quantity, buyer));
 	}
 	
-	public void insertNewRejectedBid(double price, int quantity) {
-		rejectedBidsRecord.put(price, quantity);
+	public void insertNewRejectedBid(double price, int quantity, String buyer) {
+		rejectedBidsRecord.put(price, new Bid(quantity, buyer));
 	}
 	
-	public HashMap<Double,Integer> getAcceptedBids() {
+	public HashMap<Double,Bid> getAcceptedBids() {
 		return acceptedBidsRecord;
 	}
 	
-	public HashMap<Double,Integer> getRejectedBids() {
+	public HashMap<Double,Bid> getRejectedBids() {
 		return rejectedBidsRecord;
 	}
 	
@@ -126,7 +126,25 @@ public class Product {
 		
 		for(Entry e : rejectedBidsRecord.entrySet()) {
 			if(!acceptedBidsRecord.containsKey(e.getKey())) {
-				bids.put((double)e.getKey(), (int)e.getValue());
+				bids.put((double)e.getKey(), ((Bid)e.getValue()).getQuantity());
+			}
+		}
+		
+		return bids;
+	}
+	
+	public HashMap<Double,Integer> getBidsByAgent(String buyer) {
+		HashMap<Double,Integer> bids = new HashMap<Double,Integer>();
+		buyer = buyer.toLowerCase();
+		for(Entry e : acceptedBidsRecord.entrySet()) {
+			if(((Bid)e.getValue()).getBuyer().toLowerCase().equals(buyer)) {
+				bids.put((double)e.getKey(), ((Bid)e.getValue()).getQuantity());
+			}
+		}
+		
+		for(Entry e : rejectedBidsRecord.entrySet()) {
+			if(((Bid)e.getValue()).getBuyer().toLowerCase().equals(buyer)) {
+				bids.put((double)e.getKey(), ((Bid)e.getValue()).getQuantity());
 			}
 		}
 		
@@ -138,7 +156,7 @@ public class Product {
 		
 		for(Entry e : acceptedBidsRecord.entrySet()) {
 			double price = (double)e.getKey();
-			int quantity = (int)e.getValue();
+			int quantity = ((Bid)e.getValue()).getQuantity();
 			earnings += price * quantity;
 		}
 		
@@ -153,7 +171,7 @@ public class Product {
 		int rej = 0;
 		
 		for(Entry e : rejectedBidsRecord.entrySet()) {
-			if((int)e.getValue() > 0)
+			if(((Bid)e.getValue()).getQuantity() > 0)
 				rej++;
 		}
 		
@@ -182,8 +200,9 @@ public class Product {
 		int i = 0;
 		for(Entry e : acceptedBidsRecord.entrySet()) {
 			double price = (double)e.getKey();
-			int quantity = (int)e.getValue();
-			sb.append("\t Bid #"+i+": Units - "+quantity+" / Price - "+price+"\r\n");
+			int quantity = ((Bid)e.getValue()).getQuantity();
+			String buyer = ((Bid)e.getValue()).getBuyer();
+			sb.append("\t Bid #"+i+": Units - "+quantity+" / Price - "+price+" / Buyer - "+buyer+"\r\n");
 			i++;
 		}
 		
@@ -195,8 +214,9 @@ public class Product {
 		i = 0;
 		for(Entry e : rejectedBidsRecord.entrySet()) {
 			double price = (double)e.getKey();
-			int quantity = (int)e.getValue();
-			sb.append("\t Bid #"+i+": Units - "+quantity+" / Price - "+price+"\r\n");
+			int quantity = ((Bid)e.getValue()).getQuantity();
+			String buyer = ((Bid)e.getValue()).getBuyer();
+			sb.append("\t Bid #"+i+": Units - "+quantity+" / Price - "+price+" / Buyer - "+buyer+"\r\n");
 			i++;
 		}
 		

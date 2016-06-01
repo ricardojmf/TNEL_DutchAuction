@@ -94,22 +94,22 @@ public class AuctioneerBehaviour extends SimpleBehaviour {
 					System.out.println("AUCTION accepting proposal from "+msg.getSender().getLocalName()+" for "+unitsToSell+" units");
 					getAuctioneer().sellCurrentProduct(unitsToSell);
 					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+unitsToSell;
-					getAuctioneer().getProductBeingSold().insertNewAcceptedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell);
+					getAuctioneer().getProductBeingSold().insertNewAcceptedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell, msg.getSender().getLocalName());
 					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.ACCEPT_PROPOSAL);
 				}
 				else {
 					int proposeOtherQuantity = getAuctioneer().getCurrentProductQuantityLeft();
 					System.out.println("AUCTION rejecting proposal from "+msg.getSender().getLocalName()+" suggesting quantity "+proposeOtherQuantity);
 					String message = getAuctioneer().getProductBeingSold().getCurrentPrice()+","+proposeOtherQuantity;
-					getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell);
+					getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), unitsToSell, msg.getSender().getLocalName());
 					getAuctioneer().replyBackToAgent(msg, message, ACLMessage.REJECT_PROPOSAL);				
 				}
 			}
 		}
 		else {
 			long elapsedTime = System.currentTimeMillis() - startTime;
-			if(elapsedTime/1000F > 5.0) {
-				getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), 0);
+			if(elapsedTime/1000F > 2.0) {
+				getAuctioneer().getProductBeingSold().insertNewRejectedBid(getAuctioneer().getProductBeingSold().getCurrentPrice(), 0, "none");
 				getAuctioneer().setAucState(AucioneerState.REDUCING_PRICE);
 			}
 		}		

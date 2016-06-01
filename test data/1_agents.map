@@ -1,0 +1,64 @@
+<Agents>
+
+	<Agent id="Buyer1">
+		<money>3000</money>
+		<color>BLUE</color>
+		<waitTurn>2</waitTurn>
+		<behavior>patient</behavior>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<acceptLessThanProposedQuantity>always</acceptLessThanProposedQuantity>
+		<product id="Dourada" valuation="15.0" quantityToBuy="20" minimumQuantity="10"></product>
+		<product id="Pescada" valuation="4.0" quantityToBuy="30" minimumQuantity="15"></product>	
+	</Agent>
+	
+	<Agent id="Buyer2">
+		<money>2000</money>
+		<waitTurn>1</waitTurn>
+		<behavior>safe</behavior>
+		<acceptLessThanProposedQuantity>never</acceptLessThanProposedQuantity>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<product id="Dourada" valuation="12.0" quantityToBuy="50" minimumQuantity="20"></product>
+		<product id="Tamboril" valuation="8.0" quantityToBuy="20" minimumQuantity="10"></product>
+		<product id="Sardinha" valuation="2.5" quantityToBuy="50" minimumQuantity="35"></product>	
+	</Agent>
+	
+	<Agent id="Buyer3">
+		<money>200</money>
+		<waitTurn>1</waitTurn>
+		<behavior>normal</behavior>
+		<acceptLessThanProposedQuantity>always</acceptLessThanProposedQuantity>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<product id="Sardinha" valuation="6.0" quantityToBuy="30" minimumQuantity="10"></product>		
+	</Agent>
+	
+	<Agent id="Buyer4">
+		<money>1000</money>
+		<waitTurn>1</waitTurn>
+		<behavior>panic</behavior>
+		<acceptLessThanProposedQuantity>minimum</acceptLessThanProposedQuantity>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<product id="Sardinha" valuation="3.0" quantityToBuy="30" minimumQuantity="10"></product>
+		<product id="Carapau" valuation="1.0" quantityToBuy="100" minimumQuantity="60"></product>			
+	</Agent>
+	
+	<Agent id="Buyer5">
+		<money>800</money>
+		<waitTurn>1</waitTurn>
+		<behavior>patient</behavior>
+		<acceptLessThanProposedQuantity>minimum</acceptLessThanProposedQuantity>
+		<percentagePriceDrop>0.3</percentagePriceDrop>
+		<percentageQuantityDrop>0.1</percentageQuantityDrop>
+		<percentageValuationDrop>0.2</percentageValuationDrop>
+		<product id="Tamboril" valuation="7.0" quantityToBuy="30" minimumQuantity="20"></product>
+		<product id="Carapau" valuation="3.0" quantityToBuy="30" minimumQuantity="20"></product>	
+	</Agent>
+	
+</Agents>

@@ -1,0 +1,125 @@
+================AUCTIONEER INFORMATION================
+===
+Product name: dourada
+Quantity sold: 50 units out of 100 total units.
+
+Initial Price: 20.0
+# Accepted bids: 2
+# Rejected bids: 0
+# Total bids: 2
+Earnings: 570.0
+Accepted Bids: 
+	 Bid #0: Units - 30 / Price - 11.0 / Buyer - Buyer2
+	 Bid #1: Units - 20 / Price - 12.0 / Buyer - Buyer2
+Rejected Bids: 
+	 Bid #0: Units - 0 / Price - 16.0 / Buyer - none
+	 Bid #1: Units - 0 / Price - 17.0 / Buyer - none
+	 Bid #2: Units - 0 / Price - 18.0 / Buyer - none
+	 Bid #3: Units - 0 / Price - 19.0 / Buyer - none
+	 Bid #4: Units - 0 / Price - 20.0 / Buyer - none
+	 Bid #5: Units - 0 / Price - 11.0 / Buyer - none
+	 Bid #6: Units - 0 / Price - 12.0 / Buyer - none
+	 Bid #7: Units - 0 / Price - 13.0 / Buyer - none
+	 Bid #8: Units - 0 / Price - 14.0 / Buyer - none
+	 Bid #9: Units - 0 / Price - 15.0 / Buyer - none
+===
+===
+Product name: sardinha
+Quantity sold: 50 units out of 50 total units.
+
+Initial Price: 10.0
+# Accepted bids: 2
+# Rejected bids: 0
+# Total bids: 2
+Earnings: 170.0
+Accepted Bids: 
+	 Bid #0: Units - 20 / Price - 5.5 / Buyer - Buyer4
+	 Bid #1: Units - 10 / Price - 6.0 / Buyer - Buyer3
+Rejected Bids: 
+	 Bid #0: Units - 0 / Price - 8.0 / Buyer - none
+	 Bid #1: Units - 0 / Price - 8.5 / Buyer - none
+	 Bid #2: Units - 0 / Price - 9.0 / Buyer - none
+	 Bid #3: Units - 0 / Price - 9.5 / Buyer - none
+	 Bid #4: Units - 0 / Price - 10.0 / Buyer - none
+	 Bid #5: Units - 0 / Price - 5.5 / Buyer - none
+	 Bid #6: Units - 0 / Price - 6.0 / Buyer - none
+	 Bid #7: Units - 0 / Price - 6.5 / Buyer - none
+	 Bid #8: Units - 0 / Price - 7.0 / Buyer - none
+	 Bid #9: Units - 0 / Price - 7.5 / Buyer - none
+===
+===
+Product name: pescada
+Quantity sold: 30 units out of 300 total units.
+
+Initial Price: 4.0
+# Accepted bids: 1
+# Rejected bids: 0
+# Total bids: 1
+Earnings: 120.0
+Accepted Bids: 
+	 Bid #0: Units - 30 / Price - 4.0 / Buyer - Buyer1
+Rejected Bids: 
+	 Bid #0: Units - 0 / Price - 4.0 / Buyer - none
+	 Bid #1: Units - 0 / Price - 3.6 / Buyer - none
+	 Bid #2: Units - 0 / Price - 3.8 / Buyer - none
+	 Bid #3: Units - 0 / Price - 3.4 / Buyer - none
+===
+===
+Product name: tamboril
+Quantity sold: 50 units out of 50 total units.
+
+Initial Price: 10.0
+# Accepted bids: 3
+# Rejected bids: 0
+# Total bids: 3
+Earnings: 354.0
+Accepted Bids: 
+	 Bid #0: Units - 10 / Price - 8.0 / Buyer - Buyer2
+	 Bid #1: Units - 10 / Price - 6.4 / Buyer - Buyer2
+	 Bid #2: Units - 30 / Price - 7.0 / Buyer - Buyer5
+Rejected Bids: 
+	 Bid #0: Units - 0 / Price - 8.0 / Buyer - none
+	 Bid #1: Units - 0 / Price - 9.0 / Buyer - none
+	 Bid #2: Units - 0 / Price - 6.4 / Buyer - none
+	 Bid #3: Units - 0 / Price - 10.0 / Buyer - none
+	 Bid #4: Units - 0 / Price - 9.2 / Buyer - none
+	 Bid #5: Units - 0 / Price - 8.2 / Buyer - none
+	 Bid #6: Units - 0 / Price - 7.4 / Buyer - none
+	 Bid #7: Units - 0 / Price - 6.8 / Buyer - none
+	 Bid #8: Units - 0 / Price - 7.8 / Buyer - none
+	 Bid #9: Units - 0 / Price - 8.4 / Buyer - none
+	 Bid #10: Units - 0 / Price - 9.4 / Buyer - none
+	 Bid #11: Units - 0 / Price - 9.6 / Buyer - none
+	 Bid #12: Units - 0 / Price - 7.2 / Buyer - none
+	 Bid #13: Units - 0 / Price - 8.6 / Buyer - none
+	 Bid #14: Units - 0 / Price - 7.6 / Buyer - none
+	 Bid #15: Units - 0 / Price - 9.8 / Buyer - none
+	 Bid #16: Units - 0 / Price - 8.8 / Buyer - none
+	 Bid #17: Units - 0 / Price - 7.0 / Buyer - none
+	 Bid #18: Units - 0 / Price - 6.6 / Buyer - none
+===
+===
+Product name: carapau
+Quantity sold: 100 units out of 100 total units.
+
+Initial Price: 6.0
+# Accepted bids: 1
+# Rejected bids: 0
+# Total bids: 1
+Earnings: 100.0
+Accepted Bids: 
+	 Bid #0: Units - 100 / Price - 1.0 / Buyer - Buyer4
+Rejected Bids: 
+	 Bid #0: Units - 0 / Price - 4.0 / Buyer - none
+	 Bid #1: Units - 0 / Price - 2.0 / Buyer - none
+	 Bid #2: Units - 0 / Price - 1.0 / Buyer - none
+	 Bid #3: Units - 0 / Price - 4.5 / Buyer - none
+	 Bid #4: Units - 0 / Price - 5.0 / Buyer - none
+	 Bid #5: Units - 0 / Price - 2.5 / Buyer - none
+	 Bid #6: Units - 0 / Price - 5.5 / Buyer - none
+	 Bid #7: Units - 0 / Price - 6.0 / Buyer - none
+	 Bid #8: Units - 0 / Price - 3.0 / Buyer - none
+	 Bid #9: Units - 0 / Price - 1.5 / Buyer - none
+	 Bid #10: Units - 0 / Price - 3.5 / Buyer - none
+===
+======================================================

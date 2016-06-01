@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.knowm.xchart.BitmapEncoder;
@@ -23,6 +24,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
+import logic.Bid;
 import logic.Product;
 
 public class Auctioneer extends Agent {
@@ -96,6 +98,50 @@ public class Auctioneer extends Agent {
 		participants = result;
 		
 		return participants;
+	}
+	
+	public ArrayList<String> getBuyers() {
+		ArrayList<String> buyerNames = new ArrayList<String>();
+		
+		for(DFAgentDescription a : participants) {
+			buyerNames.add(a.getName().getLocalName());
+		}
+		
+		buyerNames.add("none");
+		return buyerNames;
+	}
+	
+	public HashMap<Double,Integer> getBidsByBuyer(String buyerName) {
+		HashMap<Double,Integer> bids = new HashMap<Double,Integer>();
+		buyerName = buyerName.toLowerCase();
+		int qt;
+		double price;
+		String name;
+		
+		for(int i = 0; i < productsToSell.size(); i++) {
+			Product p = productsToSell.get(i);
+			for(Entry e : p.getAcceptedBids().entrySet()) {
+				price = (double)e.getKey();
+				qt = ((Bid)e.getValue()).getQuantity();
+				name = ((Bid)e.getValue()).getBuyer();
+				
+				if(name.toLowerCase().equals(buyerName)) {
+					bids.put(price, qt);
+				}
+			}
+			
+			for(Entry e : p.getRejectedBids().entrySet()) {
+				price = (double)e.getKey();
+				qt = ((Bid)e.getValue()).getQuantity();
+				name = ((Bid)e.getValue()).getBuyer();
+				
+				if(name.toLowerCase().equals(buyerName)) {
+					bids.put(price, qt);
+				}
+			}
+		}
+		
+		return bids;
 	}
 	
 	public void replyBackToAgent(ACLMessage originalMsg, String message, int messageType) {
@@ -180,16 +226,117 @@ public class Auctioneer extends Agent {
 		}
 		finally {
 			out.close();
-			drawPlots(extraname);
+			drawPlotsByProduct(extraname);
 		}
 	}
 	
-	public void drawPlots(String extraName) {
+	public void drawPlotsByBuyers(String extraName) {
+		XYChart chart;
+		double[] xData;
+		double[] yData;
+		int i,j;
+		ArrayList<String> buyerNames = getBuyers();
+		Color[] colors = new Color[] {Color.BLACK, Color.BLUE, Color.CYAN, Color.GREEN, Color.RED, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW, Color.DARK_GRAY, Color.GRAY};
+		
+		// Create Chart
+	    chart = new XYChartBuilder().title("products_bidsByPrice").xAxisTitle("Price").yAxisTitle("Bids").build();
+	    
+		for(String name : buyerNames) {
+			HashMap<Double,Integer> bids = getBidsByBuyer(name);
+			xData = new double[bids.size()];
+		    yData = new double[bids.size()];
+		    i = 0;
+		    j = 0;
+		    for(Entry e : bids.entrySet()) {
+				double price = (double)e.getKey();
+				double quantity = ((Integer)e.getValue()).doubleValue();
+				xData[i] = price;
+				yData[i] = quantity;
+				i++;
+			}
+		    
+		    j++;
+		    if(j >= colors.length)
+		    	j = 0;
+		    
+		    XYSeries series = chart.addSeries(name, xData, yData);
+		    series.setMarkerColor(colors[j]);
+		    series.setMarker(SeriesMarkers.CIRCLE);
+		    series.setLineStyle(SeriesLines.NONE);
+		}
+		    
+	    chart.getStyler().setPlotGridLinesVisible(false);
+	    chart.getStyler().setAxisTicksLineVisible(false);
+	    chart.getStyler().setAxisTicksMarksVisible(true);
+	    chart.getStyler().setAxisTickMarkLength(15);
+	    chart.getStyler().setXAxisDecimalPattern("#0.00");
+	    
+	    // Save it
+	    try {
+			BitmapEncoder.saveBitmap(chart, "results/plots/"+"products_bidsByPrice_"+extraName, BitmapFormat.PNG);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void drawPlotsByProduct(String extraName) {
+		double[] xData;
+		double[] yData;
+		int i,j = 0;
+		
+		ArrayList<String> buyerNames = getBuyers();
+		Color[] colors = new Color[] {Color.BLACK, Color.BLUE, Color.CYAN, Color.GREEN, Color.RED, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW, Color.DARK_GRAY, Color.GRAY};
+
+		for(Product p : productsToSell) {
+			// Create Chart
+			XYChart chart = new XYChartBuilder().title(p.getName()+"_bidsByPrice").xAxisTitle("Price").yAxisTitle("Bids").build();
+		    
+			for(String name : buyerNames) {
+				HashMap<Double,Integer> bids = p.getBidsByAgent(name);
+				xData = new double[bids.size()];
+			    yData = new double[bids.size()];
+			    i = 0;
+			    for(Entry e : bids.entrySet()) {
+					double price = (double)e.getKey();
+					double quantity = ((Integer)e.getValue()).doubleValue();
+					xData[i] = price;
+					yData[i] = quantity;
+					i++;
+				}
+			    
+			    if(xData.length > 0 && yData.length > 0) {
+				    j++;
+				    if(j >= colors.length)
+				    	j = 0;
+			    	XYSeries series = chart.addSeries(name, xData, yData);
+				    series.setMarkerColor(colors[j]);
+				    series.setMarker(SeriesMarkers.CIRCLE);
+				    series.setLineStyle(SeriesLines.NONE);
+			    }	    
+			    
+			}
+			
+			chart.getStyler().setPlotGridLinesVisible(false);
+		    chart.getStyler().setAxisTicksLineVisible(false);
+		    chart.getStyler().setAxisTicksMarksVisible(true);
+		    chart.getStyler().setAxisTickMarkLength(15);
+		    chart.getStyler().setXAxisDecimalPattern("#0.00");
+		    
+		    // Save it
+		    try {
+				BitmapEncoder.saveBitmap(chart, "results/plots/"+p.getName()+"_bidsByPrice_"+extraName, BitmapFormat.PNG);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	
+	public void drawPlotsSimple(String extraName) {
 		XYChart chart;
 		double[] xData;
 		double[] yData;
 		int i;
-	    
+
 		for(Product p : productsToSell) {
 			xData = new double[p.getAcceptedBids().size() + p.getRejectedBids().size()];
 		    yData = new double[p.getAcceptedBids().size() + p.getRejectedBids().size()];
@@ -213,7 +360,7 @@ public class Auctioneer extends Agent {
 			// Create Chart
 		    chart = new XYChartBuilder().title(p.getName()+"_bidsByPrice").xAxisTitle("Price").yAxisTitle("Bids").build();
 		    //QuickChart.getChart("Sample Chart", "Price", "Bids", "Quantity Bid by Price", xData, yData);
-		    XYSeries series = chart.addSeries("Quantity Bid by Price", xData, yData);
+		    XYSeries series = chart.addSeries(p.getName(), xData, yData);
 		    chart.getStyler().setPlotGridLinesVisible(false);
 		    chart.getStyler().setAxisTicksLineVisible(false);
 		    chart.getStyler().setAxisTicksMarksVisible(true);

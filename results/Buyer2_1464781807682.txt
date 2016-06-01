@@ -1,0 +1,53 @@
+================BUYER INFORMATION================
+Buyer name: Buyer2
+Buyer behaviour: SAFE
+Proposal behaviour: NEVER
+Starting money: 2000.0
+Money left: 1286.0
+Other data:
+ 	Critical decision turn: 0
+ 	Quantity Percentage Drop: 0.1
+ 	Valuation Percentage Drop/Increase: 0.3
+Products Bought:
+===
+Product name: dourada
+Quantity bought: 50 units out of 50 total units.
+Reached minimum quantity: YES
+Initial valuation: 12.0
+Final valuation: 12.0
+# Accepted bids: 2
+# Rejected bids: 0
+# Total bids: 2
+Accepted Bids: 
+	 Bid #0: Units - 30 / Price - 11.0
+	 Bid #1: Units - 20 / Price - 12.0
+Rejected Bids: 
+	 No rejected bids. 
+===
+Product name: tamboril
+Quantity bought: 20 units out of 20 total units.
+Reached minimum quantity: YES
+Initial valuation: 8.0
+Final valuation: 8.0
+# Accepted bids: 2
+# Rejected bids: 0
+# Total bids: 2
+Accepted Bids: 
+	 Bid #0: Units - 10 / Price - 8.0
+	 Bid #1: Units - 10 / Price - 6.4
+Rejected Bids: 
+	 No rejected bids. 
+===
+Product name: sardinha
+Quantity bought: 0 units out of 50 total units.
+Reached minimum quantity: NO
+Initial valuation: 2.5
+Final valuation: 2.5
+# Accepted bids: 0
+# Rejected bids: 0
+# Total bids: 0
+Accepted Bids: 
+	 No accepted bids. 
+Rejected Bids: 
+	 No rejected bids. 
+======================================================
