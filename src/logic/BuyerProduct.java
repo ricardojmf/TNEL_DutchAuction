@@ -93,6 +93,9 @@ public class BuyerProduct {
 	}
 	
 	public void insertNewAcceptedBid(double price, int quantity) {
+		while(acceptedBidsRecord.containsKey(price)) {
+			price += 0.001;
+		}
 		acceptedBidsRecord.put(price, quantity);
 	}
 	

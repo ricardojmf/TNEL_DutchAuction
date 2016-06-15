@@ -6,11 +6,6 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-/*
- * "as the price decreases, when it reaches your valuation, buy the minimum quantity. 
- * Keep watching the auction, and before it closes, buy the remaining items 
- * (possibly at a smaller price that your valuation)."
-*/
 public class NormalBuyingBehaviour extends SimpleBehaviour {
 
 	public NormalBuyingBehaviour(Agent a) {
